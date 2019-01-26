@@ -102,6 +102,8 @@ public class HomeObject : MonoBehaviour
             transform.position = position;
             gameObject.SetActive(true);
 
+            currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
+
             if (gameObject.tag.Equals("FinalKey"))
             {
                 if (verifyEndConditions())
@@ -126,8 +128,9 @@ public class HomeObject : MonoBehaviour
 
             if (containedObject != null && open)
             {
-                containedObject.gameObject.SetActive(false);
+                containedObject.gameObject.SetActive(true);
                 containedObject.size = ObjectSize.Ground;
+                containedObject.currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(containedObject.transform.position);
             }
 
             return actionSuccessful;
@@ -160,6 +163,7 @@ public class HomeObject : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, position, speed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
+        currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
         yield return null;
     }
 }
