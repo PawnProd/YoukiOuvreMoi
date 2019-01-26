@@ -21,6 +21,7 @@ public class Order
         {
             this.type = type;
             this.targetPos = targetNode;
+            target = null;
         }
         
     }
@@ -50,12 +51,12 @@ public class Order
             case OrderType.Jump:
                 if (targetPos != null)
                 {
-                    if (targetPos != null)
-                    {
-                        GameController.Instance.JumpTo(targetPos);
-                    } else if (target != null)
+                    if (target != null)
                     {
                         GameController.Instance.JumpTo(target.gameObject);
+                    } else if (targetPos != null)
+                    {
+                        GameController.Instance.JumpTo(targetPos);
                     }
                     
                 }
