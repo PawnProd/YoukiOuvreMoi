@@ -212,6 +212,7 @@ public class GameController : MonoBehaviour
         {
             dog.JumpTo(node);
             dog.height = ObjectSize.Ground;
+            gridSystem.CleanUpdatedNode();
         }
         else
         {
@@ -224,6 +225,8 @@ public class GameController : MonoBehaviour
             {
                 dog.height = target.GetComponent<HomeObject>().size;
                 dog.JumpTo(node);
+                gridSystem.CleanUpdatedNode();
+                gridSystem.UpdateWalkableNode(dog.height, node);
             }
         }
 
@@ -237,6 +240,7 @@ public class GameController : MonoBehaviour
         Debug.Log(targetPos);
         if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
         {
+            gridSystem.SwitchWalkableNode(gridSystem.NodeFromWorlPoint(position), gridSystem.NodeFromWorlPoint(targetPos));
             dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>(), gridSystem.NodeFromWorlPoint(targetPos).worldPosition);
             gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = gridSystem.NodeFromWorlPoint(position).objectOnNode;
             gridSystem.NodeFromWorlPoint(position).objectOnNode = null;
