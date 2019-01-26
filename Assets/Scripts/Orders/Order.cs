@@ -50,7 +50,14 @@ public class Order
             case OrderType.Jump:
                 if (targetPos != null)
                 {
-                    GameController.Instance.JumpTo(targetPos);
+                    if (targetPos != null)
+                    {
+                        GameController.Instance.JumpTo(targetPos);
+                    } else if (target != null)
+                    {
+                        GameController.Instance.JumpTo(target.gameObject);
+                    }
+                    
                 }
                 else
                 {
