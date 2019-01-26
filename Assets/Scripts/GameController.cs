@@ -43,7 +43,6 @@ public class GameController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && phase == Phase.SELECTTARGET)
         {
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
             if(hits.Length > 0)
@@ -201,46 +200,81 @@ public class GameController : MonoBehaviour
 
     public void GrabObject(Vector3 position)
     {
-        Debug.Log("Grab obj");
-        if (gridSystem.NodeFromWorlPoint(position).objectOnNode != null)
+        if (gridSystem.NodeFromWorlPoint(position).objectOnNode != null && dog.height == gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().size)
         {
-            Debug.Log("Grab obj");
-            HomeObject obj = gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>();
-            inventory = obj.gameObject;
-            gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
-            ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
-            dog.Grab(obj);
+            HomeObject obj;
+            if (gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject)
+            {
+                obj= gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject;
+                if (dog.Grab(obj))
+                {
+                    inventory = obj.gameObject;
+                    gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
+                    ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
+
+                }
+            }
+            else
+            {
+                obj = gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>();
+                if (dog.Grab(obj))
+                {
+                    inventory = obj.gameObject;
+                    gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
+                    ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
+
+                }
+            }
+            
         }
-       
     }
 
     public void ReleaseObject(Vector3 targetPos)
     {   
         if(gridSystem.CheckIfPosIsNear(dog.gameObject, targetPos))
         {
-            Debug.Log("On est a côté !");
-            if (dog.height == gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size && dog.height == ObjectSize.Ground)
+            if(dog.height == ObjectSize.Ground)
             {
                 if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
                 {
                     dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
                     gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
+                    gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size = dog.height;
+                    ath.RemoveObjetToInventory();
+                    inventory = null;
+                }
+            }
+            else if (dog.height != ObjectSize.Ground && gridSystem.NodeFromWorlPoint(targetPos).objectOnNode == null)
+            {
+                dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
+                inventory.GetComponent<HomeObject>().size = ObjectSize.Ground;
+                gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
+                ath.RemoveObjetToInventory();
+                inventory = null;
+            }
+            else if (dog.height == gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size && dog.height == ObjectSize.Ground)
+            {
+                if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
+                {
+                    dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
+                    gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
+                    gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size = dog.height;
                     ath.RemoveObjetToInventory();
                     inventory = null;
                 }
             }
             else if (dog.height == gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size)
             {
-                Debug.Log("On est en hauteur !");
                 if (gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject == null)
                 {
-                    Debug.Log("Il y a rien dessus !");
                     dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
                     gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject = inventory.GetComponent<HomeObject>();
+                    gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject.GetComponent<HomeObject>().size = dog.height;
                     ath.RemoveObjetToInventory();
                     inventory = null;
                 }
             }
+           
         }
     }
 
