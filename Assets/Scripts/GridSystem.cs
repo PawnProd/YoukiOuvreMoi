@@ -28,7 +28,7 @@ public class GridSystem : MonoBehaviour
             for (int y = 0; y < tilemapBounds.size.y; y++)
             {
                 TileBase tile = allTiles[x + y * tilemapBounds.size.x];
-                bool walkable = (tile.name == "Floor");
+                bool walkable = (tile.name.Contains("Floor"));
                 TileType type;
                 switch(tile.name)
                 {
@@ -54,6 +54,7 @@ public class GridSystem : MonoBehaviour
         {
             Node node = NodeFromWorlPoint(child.position);
             node.objectOnNode = child.gameObject;
+            node.walkable = false;
         }
     }
 
