@@ -100,7 +100,7 @@ public class GameController : MonoBehaviour
         if (nextAction == "Déplacer")
             order = CreateOrder(targetMove.worldPosition);
         else
-            order = CreateOrder(targetAction.transform.position);
+            order = CreateOrder(targetAction.GetComponent<Object>());
 
         order.ExecuteOrder();
     }
@@ -115,10 +115,6 @@ public class GameController : MonoBehaviour
                 type = OrderType.Move;
                 order = new Order(type, position);
                 break;
-            case "Sauter":
-                type = OrderType.Jump;
-                order = new Order(type, position);
-                break;
             default:
                 type = OrderType.Move;
                 order = new Order(type, position);
@@ -127,6 +123,26 @@ public class GameController : MonoBehaviour
         }
         return order;
     
+    }
+
+    public Order CreateOrder(Object obj)
+    {
+        OrderType type;
+        Order order;
+        switch (nextAction)
+        {
+            case "Sauter":
+                type = OrderType.Jump;
+                order = new Order(type, obj);
+                break;
+            default:
+                type = OrderType.Jump;
+                order = new Order(type, obj);
+                break;
+
+        }
+        return order;
+
     }
 
     public void MoveDog(GameObject target)
@@ -143,6 +159,7 @@ public class GameController : MonoBehaviour
 
     public void JumpTo(GameObject target)
     {
+        Debug.Log("Jump !");
         bool canJump = false;
         if(target.GetComponent<Object>() != null)
         {
@@ -178,7 +195,7 @@ public class GameController : MonoBehaviour
 
     public void JumpTo(Vector3 position)
     {
-        
+        Debug.Log("Jump position !");
         Node node = gridSystem.NodeFromWorlPoint(position);
         if (dog.height == ObjectSize.Low && node.walkable && gridSystem.CheckIfPosIsNear(dog.gameObject, position))
         {
