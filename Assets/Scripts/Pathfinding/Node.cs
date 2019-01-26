@@ -15,12 +15,15 @@ public class Node
 
     public Node parent;
 
-    public Node(bool walkable, Vector3 worldPosition, int gridX, int gridY)
+    public TileType type;
+
+    public Node(bool walkable, Vector3 worldPosition, int gridX, int gridY, TileType type)
     {
         this.walkable = walkable;
         this.worldPosition = worldPosition;
         this.gridX = gridX;
         this.gridY = gridY;
+        this.type = type;
     }
 
     public int fCost
@@ -30,4 +33,10 @@ public class Node
             return gCost + hCost;
         }
     }
+}
+
+public enum TileType
+{
+    WALL,
+    FLOOR
 }
