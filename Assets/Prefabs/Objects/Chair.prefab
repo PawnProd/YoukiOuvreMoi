@@ -45,11 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 1
   speed: 5
-  open: 0
+  open: 1
   key: {fileID: 0}
   containedObject: {fileID: 0}
   onTopObject: {fileID: 0}
   pushable: 1
   movable: 0
-  grabable: 1
+  grabable: 0
   examinable: 1

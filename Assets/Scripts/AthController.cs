@@ -19,6 +19,8 @@ public class AthController : MonoBehaviour
 
     public Transform victoryPanel;
 
+    public Transform tipsPanel;
+
     public void InitOrder(string actionName)
     {
         orderPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionName;
@@ -87,5 +89,15 @@ public class AthController : MonoBehaviour
         victoryPanel.gameObject.SetActive(state);
     }
 
+    public void LoadTips (string title, string content)
+    {
+        tipsPanel.Find("Title").GetComponent<TextMeshProUGUI>().text = "title";
+        tipsPanel.Find("Content").GetComponent<TextMeshProUGUI>().text = "content";
+        tipsPanel.gameObject.SetActive(true);
+    }
 
+    public void CloseTips ()
+    {
+        tipsPanel.gameObject.SetActive(false);
+    }
 }
