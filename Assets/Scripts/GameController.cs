@@ -323,7 +323,7 @@ public class GameController : MonoBehaviour
 
     public void EndOfGame ()
     {
-
+        GameObject.Find("Panel_Victory").SetActive(true);
     }
 }
 
