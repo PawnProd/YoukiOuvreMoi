@@ -70,6 +70,33 @@ public class GameController : MonoBehaviour
         ath.EnableOrDisableApplyOrderButton(true);
     }
 
+    public void ApplyOrder()
+    {
+        Order order = CreateOrder(targetMove.worldPosition);
+        order.ExecuteOrder();
+    }
+
+    public Order CreateOrder(Vector3 position)
+    {
+        OrderType type;
+        switch(nextAction)
+        {
+            case "Déplacer":
+                type = OrderType.Move;
+                break;
+            case "Sauter":
+                type = OrderType.Jump;
+                break;
+            default:
+                type = OrderType.Move;
+                break;
+
+        }
+
+        return new Order(type, position);
+    
+    }
+
     public void MoveDog(GameObject target)
     {
         gridSystem.FindPath(dog.transform.position, target.transform.position);

@@ -22,7 +22,7 @@ public class Dog : MonoBehaviour
 
     public void Push(Object objToPush)
     {
-        //objToPush.BeingPushed(this);
+        objToPush.BeingPushed(this, Vector3.forward);
     }
 
     public void Grab(Object objToGrab)
