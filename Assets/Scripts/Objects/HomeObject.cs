@@ -110,7 +110,7 @@ public class HomeObject : MonoBehaviour
             {
                 if (verifyEndConditions())
                 {
-                    GameController.Instance.EndOfGame();
+                    GameController.Instance.EndOfGame(true);
                 }
             }
             GameController.Instance.phase = Phase.SELECTACTION;

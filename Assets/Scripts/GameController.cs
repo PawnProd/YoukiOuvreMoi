@@ -338,9 +338,16 @@ public class GameController : MonoBehaviour
         dog.Examine(obj);
     }
 
-    public void EndOfGame ()
+    public void EndOfGame (bool victory)
     {
         ath.victoryActivation(true);
+        if (victory)
+        {
+            ath.GetComponent<VictoryController>().Victory();
+        } else
+        {
+            ath.GetComponent<VictoryController>().Defeat();
+        }
     }
 }
 

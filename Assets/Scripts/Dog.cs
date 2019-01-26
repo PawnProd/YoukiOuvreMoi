@@ -57,9 +57,10 @@ public class Dog : MonoBehaviour
     public void BeConfused ()
     {
         compteurConfusion--;
+        nbOfConfusedTimes++;
         if ( verifyLoosingConditions() )
         {
-            nbOfConfusedTimes++;
+            GameController.Instance.EndOfGame(false);
             // Activer Youki confus !
         }
     }
