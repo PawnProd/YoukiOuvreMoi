@@ -3353,7 +3353,7 @@ MonoBehaviour:
   applyOrderButton: {fileID: 4417264532071241650}
   inventoryContent: {fileID: 4417264531902617124}
   cursorOverlay: {fileID: 0}
-  victoryPanel: {fileID: 0}
+  victoryPanel: {fileID: 7406650746114402456}
 --- !u!114 &5810911907321672425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4257,7 +4257,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4387,8 +4387,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: LoadNextScene
+      - m_Target: {fileID: 5810911907321672425}
+        m_MethodName: ReloadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
