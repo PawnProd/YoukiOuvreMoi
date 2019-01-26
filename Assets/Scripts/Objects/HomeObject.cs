@@ -57,12 +57,13 @@ public class HomeObject : MonoBehaviour
     {
         if (pushable)
         {
-            bool actionSuccessful = false;
+            bool actionSuccessful = true;
             
             if (onTopObject != null)
             {
                 onTopObject.MoveObject(dog.transform.position);
                 onTopObject.size = ObjectSize.Ground;
+                onTopObject = null;
             }
 
             if (movable)
