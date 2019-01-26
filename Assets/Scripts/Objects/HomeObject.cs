@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Object : MonoBehaviour
+public class HomeObject : MonoBehaviour
 {
     // Attributes
     public ObjectWeight weight;
@@ -10,11 +10,11 @@ public class Object : MonoBehaviour
     public Vector3 location;
 
     public bool open;
-    public GameObject key;
-
-    public GameObject containedObject;
-    public GameObject onTopObject;
+    public HomeObject key;
     
+    public HomeObject containedObject;
+    public HomeObject onTopObject;
+
     private bool pushable;
     private bool movable;
     private bool grabable;
@@ -44,6 +44,8 @@ public class Object : MonoBehaviour
         {
             containedObject.gameObject.SetActive(false);
         }
+
+        
     }
 
     // Update is called once per frame
