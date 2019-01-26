@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Order : MonoBehaviour
+public class Order
 {
-
-    // Start is called before the first frame update
-    void Start()
+    // Attributes
+    public OrderType type;
+    public Object target;
+    
+    public Order (OrderType type, Object target)
     {
-        
+        this.type = type;
+        this.target = target;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ExecuteOrder ()
     {
-        
+
     }
+
 }
