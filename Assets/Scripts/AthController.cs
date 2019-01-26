@@ -17,6 +17,8 @@ public class AthController : MonoBehaviour
 
     public Transform cursorOverlay;
 
+    public Transform victoryPanel;
+
     public void InitOrder(string actionName)
     {
         orderPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionName;
@@ -80,7 +82,10 @@ public class AthController : MonoBehaviour
         Destroy(inventoryContent.GetChild(0).gameObject);
     }
 
-
+    public void victoryActivation (bool state)
+    {
+        victoryPanel.gameObject.SetActive(state);
+    }
 
 
 }

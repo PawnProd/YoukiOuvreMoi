@@ -25,4 +25,14 @@ public class VictoryController : MonoBehaviour
     {
         victoryStats.Find("NbConfused").GetComponent<TextMeshProUGUI>().text = ""+GameController.Instance.dog.nbOfConfusedTimes;
     }
+
+    public void Victory ()
+    {
+        victoryStats.Find("Title").GetComponent<TextMeshProUGUI>().text = "Victoire !";
+    }
+
+    public void Defeat ()
+    {
+        victoryStats.Find("Title").GetComponent<TextMeshProUGUI>().text = "Defaite !";
+    }
 }
