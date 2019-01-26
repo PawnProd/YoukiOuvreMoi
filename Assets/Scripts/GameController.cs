@@ -151,16 +151,28 @@ public class GameController : MonoBehaviour
     
     }
 
-    public void MoveDog(GameObject target)
-    {
-        gridSystem.FindPath(dog.transform.position, target.transform.position);
-        dog.MoveTo(gridSystem.GetGlobalPath());
-    }
-
     public void MoveDog(Vector3 position)
     {
-        gridSystem.FindPath(dog.transform.position, position);
-        dog.MoveTo(gridSystem.GetGlobalPath());
+        if(dog.height != ObjectSize.Ground)
+        {
+            if(gridSystem.NodeFromWorlPoint(position).objectOnNode != null)
+            {
+                if(dog.height == gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().size)
+                {
+                    gridSystem.FindPath(dog.transform.position, position);
+                    dog.MoveTo(gridSystem.GetGlobalPath());
+                }
+            }
+        }
+        else
+        {
+            if(gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(position)))
+            {
+                gridSystem.FindPath(dog.transform.position, position);
+                dog.MoveTo(gridSystem.GetGlobalPath());
+            }
+        }
+        
     }
 
     public void JumpTo(Vector3 position)
@@ -170,25 +182,30 @@ public class GameController : MonoBehaviour
         bool canJump = false;
         if (target != null)
         {
+            Debug.Log("Coucou !");
             if (target.GetComponent<HomeObject>() != null)
             {
-                HomeObject targetObj = target.GetComponent<HomeObject>();
-                if (dog.height == ObjectSize.Low)
+                Debug.Log(target.GetComponent<HomeObject>().name);
+                if (target.GetComponent<HomeObject>().onTopObject == null)
                 {
-                    if (targetObj.size == ObjectSize.High || targetObj.size == ObjectSize.Ground)
+                    Debug.Log("Top Object = null");
+                    HomeObject targetObj = target.GetComponent<HomeObject>();
+                    if (dog.height == ObjectSize.Low)
                     {
-                        canJump = true;
-                    }
+                        if (targetObj.size == ObjectSize.High || targetObj.size == ObjectSize.Ground)
+                        {
+                            canJump = true;
+                        }
 
-                }
-                else if (dog.height == ObjectSize.High || dog.height == ObjectSize.Ground)
-                {
-                    if (targetObj.size == ObjectSize.Low)
+                    }
+                    else if (dog.height == ObjectSize.High || dog.height == ObjectSize.Ground)
                     {
-                        canJump = true;
+                        if (targetObj.size == ObjectSize.Low)
+                        {
+                            canJump = true;
+                        }
                     }
                 }
-
             }
         }
         else if (dog.height == ObjectSize.Low && node.walkable && gridSystem.CheckIfPosIsNear(dog.gameObject, position))

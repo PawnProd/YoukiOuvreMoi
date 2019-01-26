@@ -53,8 +53,12 @@ public class GridSystem : MonoBehaviour
         foreach(Transform child in layerObject)
         {
             Node node = NodeFromWorlPoint(child.position);
-            node.objectOnNode = child.gameObject;
-            node.walkable = false;
+            if(node.objectOnNode == null)
+            {
+                node.objectOnNode = child.gameObject;
+                node.walkable = false;
+            }
+            
         }
     }
 
