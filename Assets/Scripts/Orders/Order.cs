@@ -100,7 +100,7 @@ public class Order
                 // TODO Appeler la fonction pour récupérer l'attention de Youki
                 break;
             default:
-                Debug.Log("On est pas sensé passer là!");
+                Debug.Log("On est pas sensé passer là pour un ordre!");
                 break;
         }
     }

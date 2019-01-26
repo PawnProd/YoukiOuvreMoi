@@ -34,6 +34,16 @@ public class Object : MonoBehaviour
         grabed = false;
 
         currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
+
+        if (onTopObject != null)
+        {
+            onTopObject.size = size;
+        }
+
+        if (containedObject != null)
+        {
+            containedObject.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -47,13 +57,30 @@ public class Object : MonoBehaviour
         if (pushable)
         {
             bool actionSuccessful = false;
-
+            
             if (onTopObject != null)
             {
-                // TODO faire tomber l'objet
+                onTopObject.MoveObject(transform.forward);
+                onTopObject.size = ObjectSize.Ground;
+
+                if (onTopObject == key)
+                {
+                    Open();
+                }
             }
 
-
+            switch (weight)
+            {
+                case ObjectWeight.Medium:
+                    MoveObject(direction);
+                    break;
+                case ObjectWeight.Heavy:
+                    // TODO Faire "vibrer" l'objet ?
+                    break;
+                default:
+                    Debug.Log("On est pas sensé avoir un objet d'un poids différent à pousser!");
+                    break;
+            }
 
             return actionSuccessful;
         } else {
@@ -91,7 +118,7 @@ public class Object : MonoBehaviour
         {
             bool actionSuccessful = false;
 
-            // TODO
+            // TODO changer le parent du transform via le GameController
 
 
             return actionSuccessful;
@@ -110,7 +137,9 @@ public class Object : MonoBehaviour
 
             if (containedObject != null)
             {
-                // TODO mettre l'objet contenu sur la case d'en face
+                containedObject.gameObject.SetActive(true);
+                containedObject.MoveObject(transform.forward);
+                containedObject.size = ObjectSize.Ground;
             }
 
             return actionSuccessful;
