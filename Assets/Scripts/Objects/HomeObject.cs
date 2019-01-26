@@ -84,7 +84,9 @@ public class HomeObject : MonoBehaviour
         {
             bool actionSuccessful = true;
             gameObject.SetActive(false);
-            
+
+            grabed = true;
+
             return actionSuccessful;
         } else {
             return grabable;
@@ -99,6 +101,14 @@ public class HomeObject : MonoBehaviour
 
             transform.position = position;
             gameObject.SetActive(true);
+
+            if (gameObject.tag.Equals("FinalKey"))
+            {
+                if (verifyEndConditions())
+                {
+                    // TODO appeler la fonction de fin de scène
+                }
+            }
 
             return actionSuccessful;
         }
@@ -138,6 +148,10 @@ public class HomeObject : MonoBehaviour
         StartCoroutine(CO_Move(position));
     }
 
+    public bool verifyEndConditions ()
+    {
+        return GameObject.FindGameObjectWithTag("FinalKey").transform.position == GameObject.FindGameObjectWithTag("Door").transform.position;
+    }
 
     IEnumerator CO_Move (Vector3 position)
     {
