@@ -8,6 +8,8 @@ public class Dog : MonoBehaviour
     public ObjectSize height = ObjectSize.Ground;
     public Vector3 direction;
 
+    public int compteurConfusion = 3;
+
     public void MoveTo(List<Node> path)
     {
         StartCoroutine(CO_Move(path));
@@ -44,6 +46,11 @@ public class Dog : MonoBehaviour
     public void CalculDirection(Node currentNode, Node nextNode)
     {
         direction = nextNode.worldPosition - currentNode.worldPosition;
+    }
+
+    public bool verifyLoosingConditions ()
+    {
+        return compteurConfusion <= 0;
     }
 
     IEnumerator CO_Move(List<Node> path)
