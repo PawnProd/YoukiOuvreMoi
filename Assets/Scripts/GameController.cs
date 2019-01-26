@@ -195,7 +195,16 @@ public class GameController : MonoBehaviour
 
     public void PushObject(Vector3 position)
     {
-       // dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.Get);
+        
+        Vector3 targetPos = position + (position - dog.transform.position);
+        Debug.Log(position - dog.transform.position);
+        Debug.Log(targetPos);
+        if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
+        {
+            dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>(), gridSystem.NodeFromWorlPoint(targetPos).worldPosition);
+            gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = gridSystem.NodeFromWorlPoint(position).objectOnNode;
+            gridSystem.NodeFromWorlPoint(position).objectOnNode = null;
+        }
     }
 
     public void GrabObject(Vector3 position)

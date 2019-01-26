@@ -21,9 +21,9 @@ public class Dog : MonoBehaviour
         StartCoroutine(CO_Move(nodes));
     }
 
-    public void Push(HomeObject objToPush)
+    public void Push(HomeObject objToPush, Vector3 position)
     {
-        objToPush.BeingPushed(this, Vector3.forward);
+        objToPush.BeingPushed(this, position);
     }
 
     public bool Grab(HomeObject objToGrab)
