@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Order
 {
+    // Attributes
     public OrderType type;
-
-    public GameObject target;
+    public Object target;
     
-    public Order (OrderType type, GameObject target)
+    public Order (OrderType type, Object target)
     {
         this.type = type;
         this.target = target;
     }
 
-    
+    public void ExecuteOrder ()
+    {
+
+    }
 
 }
