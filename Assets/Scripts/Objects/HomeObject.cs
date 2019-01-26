@@ -5,9 +5,7 @@ using UnityEngine;
 public class HomeObject : MonoBehaviour
 {
     // Attributes
-    public ObjectWeight weight;
     public ObjectSize size;
-    public Vector3 location;
 
     public bool open;
     public HomeObject key;
@@ -15,10 +13,10 @@ public class HomeObject : MonoBehaviour
     public HomeObject containedObject;
     public HomeObject onTopObject;
 
-    private bool pushable;
-    private bool movable;
-    private bool grabable;
-    private bool examinable;
+    public bool pushable;
+    public bool movable;
+    public bool grabable;
+    public bool examinable;
 
     private bool grabed;
 
@@ -27,10 +25,6 @@ public class HomeObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pushable = weight != ObjectWeight.Unmovable && weight != ObjectWeight.Light;
-        movable = weight == ObjectWeight.Light || weight == ObjectWeight.Medium;
-        grabable = weight != ObjectWeight.Unmovable;
-        examinable = CheckExaminable();
         grabed = false;
 
         currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
@@ -71,17 +65,9 @@ public class HomeObject : MonoBehaviour
                 }
             }
 
-            switch (weight)
+            if (movable)
             {
-                case ObjectWeight.Medium:
-                    MoveObject(direction);
-                    break;
-                case ObjectWeight.Heavy:
-                    // TODO Faire "vibrer" l'objet ?
-                    break;
-                default:
-                    Debug.Log("On est pas sensé avoir un objet d'un poids différent à pousser!");
-                    break;
+                MoveObject(direction);
             }
 
             return actionSuccessful;
@@ -94,20 +80,9 @@ public class HomeObject : MonoBehaviour
     {
         if (grabable)
         {
-            bool actionSuccessful = false;
-            switch (weight)
-            {
-                case ObjectWeight.Light:
-                    transform.SetParent(dog.transform);
-                    actionSuccessful = true;
-                    break;
-                case ObjectWeight.Medium:
-                    transform.SetParent(dog.transform);
-                    actionSuccessful = true;
-                    break;
-                default:
-                    break;
-            }
+            bool actionSuccessful = true;
+            transform.SetParent(dog.transform);
+            
             return actionSuccessful;
         } else {
             return grabable;
@@ -137,7 +112,7 @@ public class HomeObject : MonoBehaviour
         {
             bool actionSuccessful = false;
 
-            if (containedObject != null)
+            if (containedObject != null && open)
             {
                 containedObject.gameObject.SetActive(true);
                 containedObject.MoveObject(transform.forward);
@@ -155,12 +130,6 @@ public class HomeObject : MonoBehaviour
     public void Open ()
     {
         open = true;
-        examinable = CheckExaminable();
-    }
-
-    public bool CheckExaminable ()
-    {
-        return (weight != ObjectWeight.Light && weight != ObjectWeight.Medium) && open;
     }
 
     public bool MoveObject (Vector3 direction)
