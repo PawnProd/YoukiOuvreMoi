@@ -31,6 +31,8 @@ public class Object : MonoBehaviour
         grabable = weight != ObjectWeight.Unmovable;
         examinable = weight != ObjectWeight.Light || weight != ObjectWeight.Medium || !open;
         grabed = false;
+
+
     }
 
     // Update is called once per frame
