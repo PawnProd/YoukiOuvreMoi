@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public Phase phase;
     private string nextAction;
     private Node targetMove;
+    private GameObject targetAction;
 
 
     // Start is called before the first frame update
@@ -42,12 +43,25 @@ public class GameController : MonoBehaviour
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
             if(hits.Length > 0)
             {
-                Debug.Log("Hit count = " + hits.Length);
-                Debug.Log("Next action = " + nextAction);
                 if (hits.Length == 1 && nextAction == "Déplacer")
                 {
-                    Debug.Log("Select target");
+                    
                     SelectTargetForMove(gridSystem.NodeFromWorlPoint(hits[0].point));
+                }
+                else
+                {
+                    int i = 0;
+                    bool find = false;
+                    while(!find & i < hits.Length)
+                    {
+                        if (hits[i].collider.name != "Game")
+                        {
+                            find = true;
+                            SelectTargetForAction(hits[i].collider.gameObject);
+                        }
+
+                        ++i;
+                    }
                 }
             }
         }
@@ -70,9 +84,24 @@ public class GameController : MonoBehaviour
         ath.EnableOrDisableApplyOrderButton(true);
     }
 
+    public void SelectTargetForAction(GameObject target)
+    {
+        targetAction = target;
+        ath.AddTargetSprite(target.GetComponent<SpriteRenderer>().sprite);
+        phase = Phase.APPLYORDER;
+        ath.ChangeTodoText(phase);
+        ath.EnableOrDisableApplyOrderButton(true);
+    }
+
     public void ApplyOrder()
     {
-        Order order = CreateOrder(targetMove.worldPosition);
+        Order order;
+
+        if (nextAction == "Déplacer")
+            order = CreateOrder(targetMove.worldPosition);
+        else
+            order = CreateOrder(targetAction.transform.position);
+
         order.ExecuteOrder();
     }
 
@@ -92,7 +121,6 @@ public class GameController : MonoBehaviour
                 break;
 
         }
-
         return new Order(type, position);
     
     }
@@ -146,6 +174,7 @@ public class GameController : MonoBehaviour
 
     public void JumpTo(Vector3 position)
     {
+        
         Node node = gridSystem.NodeFromWorlPoint(position);
         if (dog.height == ObjectSize.Low && node.walkable && gridSystem.CheckIfPosIsNear(dog.gameObject, position))
         {
