@@ -6,7 +6,6 @@ using UnityEngine.Tilemaps;
 public class GridSystem : MonoBehaviour
 {
     public Tilemap tileMap;
-
     private Node[,] grid;
     private List<Node> globalPath;
     public List<Node> updatedNodes = new List<Node>();
@@ -24,7 +23,6 @@ public class GridSystem : MonoBehaviour
         BoundsInt tilemapBounds = tileMap.cellBounds;
         TileBase[] allTiles = tileMap.GetTilesBlock(tilemapBounds);
         grid = new Node[tilemapBounds.size.x, tilemapBounds.size.y];
-        Debug.Log("X = " + tilemapBounds.size.x + " Y = " + tilemapBounds.size.y);
         for (int x = 0; x < tilemapBounds.size.x; x++)
         {
             for (int y = 0; y < tilemapBounds.size.y; y++)

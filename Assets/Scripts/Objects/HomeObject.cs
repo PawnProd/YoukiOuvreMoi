@@ -24,6 +24,9 @@ public class HomeObject : MonoBehaviour
 
     public Node currentNode;
 
+    public string title;
+    public string content;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,12 +57,13 @@ public class HomeObject : MonoBehaviour
     {
         if (pushable)
         {
-            bool actionSuccessful = false;
+            bool actionSuccessful = true;
             
             if (onTopObject != null)
             {
                 onTopObject.MoveObject(dog.transform.position);
                 onTopObject.size = ObjectSize.Ground;
+                onTopObject = null;
             }
 
             if (movable)
@@ -108,6 +112,11 @@ public class HomeObject : MonoBehaviour
                 {
                     GameController.Instance.EndOfGame(true);
                 }
+            }
+
+            if (gameObject.tag.Equals("Tips") && GameObject.FindGameObjectWithTag("FinalKey").transform.position == transform.position)
+            {
+                GameController.Instance.ath.LoadTips(title, content, this.gameObject);
             }
             GameController.Instance.phase = Phase.SELECTACTION;
             return actionSuccessful;
