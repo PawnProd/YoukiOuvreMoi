@@ -13,12 +13,10 @@ public class Dog : MonoBehaviour
 
     IEnumerator CO_Move(List<Node> path)
     {
-        Debug.Log("Move ! ");
         foreach(Node node in path)
         {
             while((node.worldPosition - transform.position).sqrMagnitude > 0.01f)
             {
-                Debug.Log("AH ! ");
                 transform.position = Vector3.MoveTowards(transform.position, node.worldPosition, speed * Time.deltaTime);
                 yield return new WaitForEndOfFrame();
             }
