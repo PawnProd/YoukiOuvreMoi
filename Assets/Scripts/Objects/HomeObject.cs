@@ -24,6 +24,9 @@ public class HomeObject : MonoBehaviour
 
     public Node currentNode;
 
+    public string title;
+    public string content;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -108,6 +111,11 @@ public class HomeObject : MonoBehaviour
                 {
                     GameController.Instance.EndOfGame(true);
                 }
+            }
+
+            if (gameObject.tag.Equals("Tips") && GameObject.FindGameObjectWithTag("FinalKey").transform.position == transform.position)
+            {
+                GameController.Instance.ath.LoadTips(title, content, this.gameObject);
             }
             GameController.Instance.phase = Phase.SELECTACTION;
             return actionSuccessful;
