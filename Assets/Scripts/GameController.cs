@@ -31,6 +31,8 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         phase = Phase.SELECTACTION;
+        targetMove = null;
+        targetAction = null;
     }
 
     // Update is called once per frame
@@ -43,7 +45,7 @@ public class GameController : MonoBehaviour
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
             if(hits.Length > 0)
             {
-                if (hits.Length == 1 && nextAction == "Déplacer")
+                if (hits.Length == 1 && (nextAction == "Déplacer" || nextAction == "Sauter"))
                 {
                     
                     SelectTargetForMove(gridSystem.NodeFromWorlPoint(hits[0].point));
@@ -97,12 +99,19 @@ public class GameController : MonoBehaviour
     {
         Order order;
 
-        if (nextAction == "Déplacer")
+        if (targetAction == null)
             order = CreateOrder(targetMove.worldPosition);
         else
-            order = CreateOrder(targetAction.GetComponent<Object>());
+            order = CreateOrder(targetAction.GetComponent<HomeObject>());
 
         order.ExecuteOrder();
+        CleanOrder();
+    }
+
+    public void CleanOrder()
+    {
+        targetAction = null;
+        targetMove = null;
     }
 
     public Order CreateOrder(Vector3 position)
@@ -115,6 +124,10 @@ public class GameController : MonoBehaviour
                 type = OrderType.Move;
                 order = new Order(type, position);
                 break;
+            case "Sauter":
+                type = OrderType.Jump;
+                order = new Order(type, position);
+                break;
             default:
                 type = OrderType.Move;
                 order = new Order(type, position);
@@ -125,7 +138,7 @@ public class GameController : MonoBehaviour
     
     }
 
-    public Order CreateOrder(Object obj)
+    public Order CreateOrder(HomeObject obj)
     {
         OrderType type;
         Order order;
@@ -161,9 +174,9 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Jump !");
         bool canJump = false;
-        if(target.GetComponent<Object>() != null)
+        if(target.GetComponent<HomeObject>() != null)
         {
-            Object targetObj = target.GetComponent<Object>();
+            HomeObject targetObj = target.GetComponent<HomeObject>();
             if(dog.height == ObjectSize.Low)
             {
                 if(targetObj.size == ObjectSize.High || targetObj.size == ObjectSize.Ground)
@@ -187,7 +200,7 @@ public class GameController : MonoBehaviour
             Node node = gridSystem.NodeFromWorlPoint(target.transform.position);
             if (gridSystem.CheckIfObjectIsNear(dog.gameObject, target))
             {
-                dog.height = target.GetComponent<Object>().size;
+                dog.height = target.GetComponent<HomeObject>().size;
                 dog.JumpTo(node);
             }
         }
