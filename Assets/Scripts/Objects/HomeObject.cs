@@ -60,11 +60,6 @@ public class HomeObject : MonoBehaviour
             {
                 onTopObject.MoveObject(dog.transform.position);
                 onTopObject.size = ObjectSize.Ground;
-
-                if (onTopObject == key)
-                {
-                    Open();
-                }
             }
 
             if (movable)
@@ -97,6 +92,7 @@ public class HomeObject : MonoBehaviour
     {
         if (grabed)
         {
+            Debug.Log("Grab ok !");
             bool actionSuccessful = true;
 
             transform.position = position;
@@ -126,13 +122,16 @@ public class HomeObject : MonoBehaviour
     {
         if (examinable)
         {
+            Debug.Log("Coucou");
             bool actionSuccessful = false;
-
-            if (containedObject != null && open)
+            if (containedObject != null)
             {
-                containedObject.gameObject.SetActive(true);
+                Debug.Log("containedObject = " +containedObject.name);
+                containedObject.gameObject.SetActive(false);
+                containedObject.GetComponent<HomeObject>().grabed = true;
                 containedObject.size = ObjectSize.Ground;
                 containedObject.currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(containedObject.transform.position);
+                containedObject = null;
             }
 
             return actionSuccessful;
@@ -141,11 +140,6 @@ public class HomeObject : MonoBehaviour
         {
             return examinable;
         }
-    }
-
-    public void Open ()
-    {
-        open = true;
     }
 
     public void MoveObject (Vector3 position)

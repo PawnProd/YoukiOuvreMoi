@@ -36,7 +36,7 @@ public class Order
         switch (type)
         {
             case OrderType.Examine:
-                GameController.Instance.ExamineObject(target);
+                GameController.Instance.ExamineObject(targetPos);
                 break;
             case OrderType.Jump:
                 GameController.Instance.JumpTo(targetPos);
