@@ -12,8 +12,8 @@ public class Object : MonoBehaviour
     public bool open;
     public GameObject key;
 
-    public Object containedObject;
-    public Object onTopObject;
+    public GameObject containedObject;
+    public GameObject onTopObject;
     
     private bool pushable;
     private bool movable;
