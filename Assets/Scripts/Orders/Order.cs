@@ -6,10 +6,10 @@ public class Order
 {
     // Attributes
     public OrderType type;
-    public Object target;
+    public HomeObject target;
     public Vector3 targetPos;
     
-    public Order (OrderType type, Object target)
+    public Order (OrderType type, HomeObject target)
     {
         this.type = type;
         this.target = target;
