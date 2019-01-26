@@ -7,7 +7,7 @@ public class Order
     // Attributes
     public OrderType type;
     public Object target;
-    public Vector3 targetNode;
+    public Vector3 targetPos;
     
     public Order (OrderType type, Object target)
     {
@@ -20,7 +20,7 @@ public class Order
         if (type == OrderType.Move || type == OrderType.Release || type == OrderType.Jump)
         {
             this.type = type;
-            this.targetNode = targetNode;
+            this.targetPos = targetNode;
         }
         
     }
@@ -38,28 +38,69 @@ public class Order
         switch (type)
         {
             case OrderType.Examine:
-
+                if (target != null)
+                {
+                    // TODO Appeler la fonction pour examiner un Object
+                }
+                else
+                {
+                    Debug.Log("Le Object ciblé pour l'ordre Examine est null");
+                }
                 break;
             case OrderType.Jump:
-
+                if (targetPos != null)
+                {
+                    GameController.Instance.JumpTo(targetPos);
+                }
+                else
+                {
+                    Debug.Log("Le Vector3 de la position ciblée pour l'ordre Jump est null");
+                }
                 break;
             case OrderType.Move:
-
+                if (targetPos != null)
+                {
+                    GameController.Instance.MoveDog(targetPos);
+                } else
+                {
+                    Debug.Log("Le Vector3 de la position ciblée pour l'ordre Move est null");
+                }
                 break;
             case OrderType.Push:
-
+                if (target != null)
+                {
+                    // TODO Appeler la fonction pour pousser un Object
+                }
+                else
+                {
+                    Debug.Log("Le Object ciblé pour l'ordre Push est null");
+                }
                 break;
             case OrderType.Release:
-
+                if (targetPos != null)
+                {
+                    // TODO Appeler la fonction pour release un Object
+                }
+                else
+                {
+                    Debug.Log("Le Vector3 de la position ciblée pour l'ordre Release est null");
+                }
                 break;
             case OrderType.Take:
-
+                if (target != null)
+                {
+                    // TODO Appeler la fonction pour prendre un Object
+                }
+                else
+                {
+                    Debug.Log("Le Object ciblé pour l'ordre Take est null");
+                }
                 break;
             case OrderType.Youki:
-
+                // TODO Appeler la fonction pour récupérer l'attention de Youki
                 break;
             default:
-                Debug.Log("On est pas sensé passer là!");
+                Debug.Log("On est pas sensé passer là pour un ordre!");
                 break;
         }
     }
