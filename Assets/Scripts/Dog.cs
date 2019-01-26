@@ -9,6 +9,7 @@ public class Dog : MonoBehaviour
     public Vector3 direction;
 
     public int compteurConfusion = 3;
+    public int nbOfConfusedTimes = 0;
 
     public void MoveTo(List<Node> path)
     {
@@ -53,6 +54,16 @@ public class Dog : MonoBehaviour
         return compteurConfusion <= 0;
     }
 
+    public void BeConfused ()
+    {
+        compteurConfusion--;
+        if ( verifyLoosingConditions() )
+        {
+            nbOfConfusedTimes++;
+            // Activer Youki confus !
+        }
+    }
+
     IEnumerator CO_Move(List<Node> path)
     {
         for(int i = 0; i < path.Count; ++i)
@@ -68,6 +79,7 @@ public class Dog : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+        GameController.Instance.phase = Phase.SELECTACTION;
         yield return null;
     }
 

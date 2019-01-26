@@ -57,6 +57,20 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+        if (phase != Phase.APPLYORDER)
+        {
+            if (gridSystem.NodeFromWorlPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)) != null)
+            {
+                ath.cursorOverlay.gameObject.SetActive(true);
+                ath.MoveCursorOverlay(gridSystem.NodeFromWorlPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)).worldPosition);
+            }
+            else
+            {
+                ath.cursorOverlay.gameObject.SetActive(false);
+            }
+                
+        }
+           
     }
 
     public void SelectAction(string actionName)
@@ -86,6 +100,7 @@ public class GameController : MonoBehaviour
         phase = Phase.APPLYORDER;
         ath.ChangeTodoText(phase);
         ath.EnableOrDisableApplyOrderButton(true);
+        ath.MoveCursorOverlay(node.worldPosition);
     }
 
     public void ApplyOrder()
@@ -181,6 +196,10 @@ public class GameController : MonoBehaviour
             dog.JumpTo(node);
             dog.height = ObjectSize.Ground;
         }
+        else
+        {
+            dog.BeConfused();
+        }
 
         if (canJump)
         {
@@ -204,37 +223,47 @@ public class GameController : MonoBehaviour
             dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>(), gridSystem.NodeFromWorlPoint(targetPos).worldPosition);
             gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = gridSystem.NodeFromWorlPoint(position).objectOnNode;
             gridSystem.NodeFromWorlPoint(position).objectOnNode = null;
+        } else
+        {
+            dog.BeConfused();
         }
     }
 
     public void GrabObject(Vector3 position)
     {
-        if (gridSystem.NodeFromWorlPoint(position).objectOnNode != null && dog.height == gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().size)
+        if ( inventory == null )
         {
-            HomeObject obj;
-            if (gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject)
-            {
-                obj= gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject;
-                if (dog.Grab(obj))
-                {
-                    inventory = obj.gameObject;
-                    gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
-                    ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
-
-                }
-            }
-            else
-            {
-                obj = gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>();
-                if (dog.Grab(obj))
-                {
-                    inventory = obj.gameObject;
-                    gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
-                    ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
-
-                }
-            }
             
+            if (gridSystem.NodeFromWorlPoint(position).objectOnNode != null && dog.height == gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().size)
+            {
+                HomeObject obj;
+                if (gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject)
+                {
+                    obj= gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject;
+                    if (dog.Grab(obj))
+                    {
+                        inventory = obj.gameObject;
+                        gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
+                        ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
+
+                    }
+                }
+                else
+                {
+                    obj = gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>();
+                    if (dog.Grab(obj))
+                    {
+                        inventory = obj.gameObject;
+                        gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
+                        ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
+
+                    }
+                }
+            
+            }
+        } else
+        {
+            dog.BeConfused();
         }
     }
 
@@ -290,6 +319,11 @@ public class GameController : MonoBehaviour
     public void ExamineObject(HomeObject obj)
     {
         dog.Examine(obj);
+    }
+
+    public void EndOfGame ()
+    {
+
     }
 }
 
