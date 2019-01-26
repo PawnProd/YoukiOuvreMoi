@@ -11,7 +11,7 @@ public class GridSystem : MonoBehaviour
     private List<Node> globalPath;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         CreateGrid();
     }
@@ -29,7 +29,21 @@ public class GridSystem : MonoBehaviour
             {
                 TileBase tile = allTiles[x + y * tilemapBounds.size.x];
                 bool walkable = (tile.name == "Floor");
-                grid[x, y] = new Node(walkable, tileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), x, y);
+                TileType type;
+                switch(tile.name)
+                {
+                    case "Floor":
+                        type = TileType.FLOOR;
+                        break;
+                    case "Wall":
+                        type = TileType.WALL;
+                        break;
+                    default:
+                        type = TileType.FLOOR;
+                        break;
+
+                }
+                grid[x, y] = new Node(walkable, tileMap.GetCellCenterWorld(new Vector3Int(x, y, 0)), x, y, type);
             }
         }
     }

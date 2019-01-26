@@ -5,8 +5,14 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { private set; get; }
+    public AthController ath;
     public GridSystem gridSystem;
     public Dog dog;
+    public Phase phase;
+    private string nextAction;
+    private Node targetMove;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,42 +27,74 @@ public class GameController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        phase = Phase.SELECTACTION;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && phase == Phase.SELECTTARGET)
         {
+            Debug.Log("CLick !");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
             if(hits.Length > 0)
             {
-                foreach(RaycastHit2D hit in hits)
+                Debug.Log("Hit count = " + hits.Length);
+                Debug.Log("Next action = " + nextAction);
+                if (hits.Length == 1 && nextAction == "Déplacer")
                 {
-                    Debug.Log("Hit name = " + hit.collider.name);
-                }
-                if(hits.Length == 1)
-                {
-                    Debug.Log("J'ai cliqué sur Game");
-                    JumpTo(hits[0].point);
-                }
-                else
-                {
-                    int i = 0;
-                    bool find = false;
-
-                    while(!find && i < hits.Length)
-                    {
-                        if(hits[i].collider.name != "Game")
-                        {
-                            find = true;
-                            JumpTo(hits[i].collider.gameObject);
-                        }
-
-                        ++i;
-                    }
+                    Debug.Log("Select target");
+                    SelectTargetForMove(gridSystem.NodeFromWorlPoint(hits[0].point));
                 }
             }
         }
+    }
+
+    public void SelectAction(string actionName)
+    {
+        nextAction = actionName;
+        ath.InitOrder(actionName);
+        phase = Phase.SELECTTARGET;
+        ath.ChangeTodoText(phase);
+    }
+
+    public void SelectTargetForMove(Node node)
+    {
+        targetMove = node;
+        ath.AddTargetSprite(ath.GetSpriteOfTile(node.type));
+        phase = Phase.APPLYORDER;
+        ath.ChangeTodoText(phase);
+        ath.EnableOrDisableApplyOrderButton(true);
+    }
+
+    public void ApplyOrder()
+    {
+        Order order = CreateOrder(targetMove.worldPosition);
+        order.ExecuteOrder();
+    }
+
+    public Order CreateOrder(Vector3 position)
+    {
+        OrderType type;
+        switch(nextAction)
+        {
+            case "Déplacer":
+                type = OrderType.Move;
+                break;
+            case "Sauter":
+                type = OrderType.Jump;
+                break;
+            default:
+                type = OrderType.Move;
+                break;
+
+        }
+
+        return new Order(type, position);
+    
     }
 
     public void MoveDog(GameObject target)
@@ -115,4 +153,11 @@ public class GameController : MonoBehaviour
             dog.height = ObjectSize.Ground;
         }
     }
+}
+
+public enum Phase
+{
+    SELECTACTION,
+    SELECTTARGET,
+    APPLYORDER
 }
