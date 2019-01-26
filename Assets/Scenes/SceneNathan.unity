@@ -4178,12 +4178,12 @@ MonoBehaviour:
   speed: 2
   open: 0
   key: {fileID: 0}
-  containedObject: {fileID: 0}
+  containedObject: {fileID: 652471780}
   onTopObject: {fileID: 0}
   pushable: 1
   movable: 1
   grabable: 1
-  examinable: 0
+  examinable: 1
 --- !u!1 &371102493
 GameObject:
   m_ObjectHideFlags: 0
@@ -5168,7 +5168,7 @@ MonoBehaviour:
   onTopObject: {fileID: 0}
   pushable: 1
   movable: 1
-  grabable: 0
+  grabable: 1
   examinable: 0
 --- !u!1 &728775244
 GameObject:
@@ -5560,6 +5560,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4960159543185232356, guid: d9ad668de66fe17479f3f88d4395426f,
+        type: 3}
+      propertyPath: examinable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9ad668de66fe17479f3f88d4395426f, type: 3}

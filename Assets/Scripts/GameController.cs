@@ -15,22 +15,15 @@ public class GameController : MonoBehaviour
 
     private string nextAction;
     private Node target;
-    
+
 
 
     // Start is called before the first frame update
     void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
+
 
     private void Start()
     {
@@ -294,6 +287,7 @@ public class GameController : MonoBehaviour
         {
             if(dog.height == ObjectSize.Ground)
             {
+                
                 if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
                 {
                     dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
@@ -337,9 +331,24 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void ExamineObject(HomeObject obj)
+    public void ExamineObject(Vector3 targetPos)
     {
-        dog.Examine(obj);
+        if(inventory == null)
+        {
+            Node node = gridSystem.NodeFromWorlPoint(targetPos);
+           
+            if(!gridSystem.NodeIsFree(node))
+            {
+                if(node.objectOnNode.GetComponent<HomeObject>().containedObject != null)
+                {
+                    ath.AddObjetToInventory(node.objectOnNode.GetComponent<HomeObject>().containedObject.GetComponent<SpriteRenderer>().sprite);
+                    inventory = node.objectOnNode.GetComponent<HomeObject>().containedObject.gameObject;
+                    dog.Examine(node.objectOnNode.GetComponent<HomeObject>());
+                }
+            }
+            
+        }
+        
     }
 
     public void EndOfGame (bool victory)

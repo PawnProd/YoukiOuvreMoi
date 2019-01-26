@@ -43,4 +43,5 @@ public class MenuController : MonoBehaviour
         transform.Find("[Panel] Credits").gameObject.SetActive(false);
         transform.Find("[Panel] StartMenu").gameObject.SetActive(true);
     }
+    
 }
