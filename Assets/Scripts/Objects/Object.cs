@@ -19,6 +19,8 @@ public class Object : MonoBehaviour
     private bool grabable;
     private bool examinable;
 
+    private bool grabed;
+
     public Node currentNode;
 
     // Start is called before the first frame update
@@ -28,6 +30,7 @@ public class Object : MonoBehaviour
         movable = weight == ObjectWeight.Light || weight == ObjectWeight.Medium;
         grabable = weight != ObjectWeight.Unmovable;
         examinable = weight != ObjectWeight.Light || weight != ObjectWeight.Medium || !open;
+        grabed = false;
     }
 
     // Update is called once per frame
@@ -36,7 +39,7 @@ public class Object : MonoBehaviour
         
     }
 
-    public bool BeingPushed ()
+    public bool BeingPushed (Dog dog)
     {
         if (pushable)
         {
@@ -51,8 +54,52 @@ public class Object : MonoBehaviour
         }
     }
 
+    public bool BeingGrabed (Dog dog)
+    {
+        if (grabable)
+        {
+            bool actionSuccessful = false;
+
+            // TODO
 
 
+            return actionSuccessful;
+        } else {
+            return grabable;
+        }
+    }
+
+    public bool BeingReleased (Dog dog)
+    {
+        if (grabed)
+        {
+            bool actionSuccessful = false;
+
+            // TODO
 
 
+            return actionSuccessful;
+        }
+        else
+        {
+            return grabed;
+        }
+    }
+
+    public bool BeingExamined (Dog dog)
+    {
+        if (examinable)
+        {
+            bool actionSuccessful = false;
+
+            // TODO
+
+
+            return actionSuccessful;
+        }
+        else
+        {
+            return examinable;
+        }
+    }
 }
