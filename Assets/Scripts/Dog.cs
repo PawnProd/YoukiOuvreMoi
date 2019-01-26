@@ -6,6 +6,7 @@ public class Dog : MonoBehaviour
 {
     public float speed;
     public ObjectSize height = ObjectSize.Ground;
+    public Vector3 direction;
 
     public void MoveTo(List<Node> path)
     {
@@ -40,10 +41,20 @@ public class Dog : MonoBehaviour
         objToExamine.BeingExamined(this);
     }
 
+    public void CalculDirection(Node currentNode, Node nextNode)
+    {
+        direction = nextNode.worldPosition - currentNode.worldPosition;
+    }
+
     IEnumerator CO_Move(List<Node> path)
     {
-        foreach(Node node in path)
+        for(int i = 0; i < path.Count; ++i)
         {
+            Node node = path[i];
+            if(i == path.Count - 2)
+            {
+                CalculDirection(node, path[i + 1]);
+            }
             while((node.worldPosition - transform.position).sqrMagnitude != 0)
             {
                 transform.position = Vector3.MoveTowards(transform.position, node.worldPosition, speed * Time.deltaTime);

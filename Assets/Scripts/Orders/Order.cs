@@ -41,7 +41,10 @@ public class Order
             case OrderType.Examine:
                 if (target != null)
                 {
-                    // TODO Appeler la fonction pour examiner un Object
+                    if (target != null)
+                    {
+                        GameController.Instance.ExamineObject(target);
+                    }
                 }
                 else
                 {
@@ -77,7 +80,10 @@ public class Order
             case OrderType.Push:
                 if (target != null)
                 {
-                    // TODO Appeler la fonction pour pousser un Object
+                    if (target != null)
+                    {
+                        GameController.Instance.PushObject(target);
+                    }
                 }
                 else
                 {
@@ -87,7 +93,10 @@ public class Order
             case OrderType.Release:
                 if (targetPos != null)
                 {
-                    // TODO Appeler la fonction pour release un Object
+                    if (target != null)
+                    {
+                        GameController.Instance.ReleaseObject();
+                    }
                 }
                 else
                 {
@@ -97,7 +106,10 @@ public class Order
             case OrderType.Take:
                 if (target != null)
                 {
-                    // TODO Appeler la fonction pour prendre un Object
+                    if (target != null)
+                    {
+                        GameController.Instance.GrabObject(target);
+                    }
                 }
                 else
                 {

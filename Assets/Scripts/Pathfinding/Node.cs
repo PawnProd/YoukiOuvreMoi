@@ -17,6 +17,8 @@ public class Node
 
     public TileType type;
 
+    public GameObject objectOnNode = null;
+
     public Node(bool walkable, Vector3 worldPosition, int gridX, int gridY, TileType type)
     {
         this.walkable = walkable;

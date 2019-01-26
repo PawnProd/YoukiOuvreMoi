@@ -13,6 +13,8 @@ public class AthController : MonoBehaviour
 
     public Button applyOrderButton;
 
+    public Transform inventoryContent;
+
     public void InitOrder(string actionName)
     {
         orderPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionName;
@@ -56,4 +58,21 @@ public class AthController : MonoBehaviour
                 break;
         }
     }
+
+    public void AddObjetToInventory(Sprite sprite)
+    {
+        GameObject objet = new GameObject("Objet");
+        objet.AddComponent<Image>().sprite = sprite;
+        objet.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+        objet.transform.parent = inventoryContent;
+    }
+
+    public void RemoveObjetToInventory()
+    {
+        Destroy(inventoryContent.GetChild(0).gameObject);
+    }
+
+
+
+
 }

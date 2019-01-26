@@ -9,9 +9,13 @@ public class GameController : MonoBehaviour
     public GridSystem gridSystem;
     public Dog dog;
     public Phase phase;
+
+    public GameObject inventory;
+
     private string nextAction;
     private Node targetMove;
     private GameObject targetAction;
+    private Transform objectLayer;
 
 
     // Start is called before the first frame update
@@ -33,6 +37,7 @@ public class GameController : MonoBehaviour
         phase = Phase.SELECTACTION;
         targetMove = null;
         targetAction = null;
+        gridSystem.PlaceObjectOnNodes(objectLayer);
     }
 
     // Update is called once per frame
@@ -148,6 +153,22 @@ public class GameController : MonoBehaviour
                 type = OrderType.Jump;
                 order = new Order(type, obj);
                 break;
+            case "Prendre":
+                type = OrderType.Take;
+                order = new Order(type, obj);
+                break;
+            case "Relacher":
+                type = OrderType.Release;
+                order = new Order(type, obj);
+                break;
+            case "Pousser":
+                type = OrderType.Push;
+                order = new Order(type, obj);
+                break;
+            case "Examiner":
+                type = OrderType.Examine;
+                order = new Order(type, obj);
+                break;
             default:
                 type = OrderType.Jump;
                 order = new Order(type, obj);
@@ -215,6 +236,50 @@ public class GameController : MonoBehaviour
             dog.JumpTo(node);
             dog.height = ObjectSize.Ground;
         }
+    }
+
+    public void PushObject(HomeObject obj)
+    {
+        dog.Push(obj);
+    }
+
+    public void GrabObject(HomeObject obj)
+    {
+        inventory = obj.gameObject;
+        gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
+        ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
+        dog.Grab(obj);
+    }
+
+    public void ReleaseObject()
+    {
+        Vector3 targetPos = dog.transform.position + dog.direction;
+        if(dog.height == inventory.GetComponent<HomeObject>().size && dog.height == ObjectSize.Ground)
+        {
+            if(gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
+            {
+                dog.Release(inventory.GetComponent<HomeObject>());
+                gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
+                ath.RemoveObjetToInventory();
+                inventory = null;
+            }
+        }
+        else if(dog.height == inventory.GetComponent<HomeObject>().size)
+        {
+            if (gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject == null)
+            {
+                dog.Release(inventory.GetComponent<HomeObject>());
+                gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject = inventory.GetComponent<HomeObject>();
+                ath.RemoveObjetToInventory();
+                inventory = null;
+            }
+        }
+       
+    }
+
+    public void ExamineObject(HomeObject obj)
+    {
+        dog.Examine(obj);
     }
 }
 
