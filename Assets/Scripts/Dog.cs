@@ -11,6 +11,14 @@ public class Dog : MonoBehaviour
         StartCoroutine(CO_Move(path));
     }
 
+    public void JumpTo(Node node)
+    {
+        List<Node> nodes = new List<Node>();
+        nodes.Add(node);
+
+        StartCoroutine(CO_Move(nodes));
+    }
+
     IEnumerator CO_Move(List<Node> path)
     {
         foreach(Node node in path)

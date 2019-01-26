@@ -73,6 +73,11 @@ public class GridSystem : MonoBehaviour
         return grid[x, y];
     }
 
+    public bool NodeIsWalkable(Vector3 position)
+    {
+        return NodeFromWorlPoint(position).walkable;
+    }
+
     private void OnDrawGizmos()
     {
         if(grid != null)

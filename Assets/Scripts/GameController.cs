@@ -28,11 +28,25 @@ public class GameController : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-            if(hit)
+            if(hit && hit.collider.GetComponent<Object>())
             {
-                gridSystem.FindPath(dog.transform.position, hit.point);
-                dog.MoveTo(gridSystem.GetGlobalPath());
+                if(hit.collider.GetComponent<Object>().size == ObjectSize.Low)
+                {
+                    dog.JumpTo(gridSystem.NodeFromWorlPoint(hit.point));
+                }
             }
         }
+    }
+
+    public void MoveDog(GameObject target)
+    {
+        gridSystem.FindPath(dog.transform.position, target.transform.position);
+        dog.MoveTo(gridSystem.GetGlobalPath());
+    }
+
+    public void MoveDog(Vector3 position)
+    {
+        gridSystem.FindPath(dog.transform.position, position);
+        dog.MoveTo(gridSystem.GetGlobalPath());
     }
 }
