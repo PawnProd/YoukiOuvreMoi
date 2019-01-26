@@ -102,6 +102,8 @@ public class HomeObject : MonoBehaviour
             transform.position = position;
             gameObject.SetActive(true);
 
+            grabed = false;
+
             currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
 
             if (gameObject.tag.Equals("FinalKey"))
