@@ -93,10 +93,7 @@ public class Order
             case OrderType.Release:
                 if (targetPos != null)
                 {
-                    if (target != null)
-                    {
-                        GameController.Instance.ReleaseObject();
-                    }
+                    GameController.Instance.ReleaseObject(targetPos);
                 }
                 else
                 {

@@ -28,12 +28,12 @@ public class Dog : MonoBehaviour
 
     public void Grab(HomeObject objToGrab)
     {
-        objToGrab.BeingGrabed(this);
+        objToGrab.BeingGrabed();
     }
 
-    public void Release(HomeObject objToRelease)
+    public void Release(HomeObject objToRelease, Vector3 position)
     {
-        objToRelease.BeingReleased(this);
+        objToRelease.BeingReleased(position);
     }
 
     public void Examine(HomeObject objToExamine)

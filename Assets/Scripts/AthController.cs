@@ -65,6 +65,7 @@ public class AthController : MonoBehaviour
         objet.AddComponent<Image>().sprite = sprite;
         objet.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
         objet.transform.parent = inventoryContent;
+        objet.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
     }
 
     public void RemoveObjetToInventory()

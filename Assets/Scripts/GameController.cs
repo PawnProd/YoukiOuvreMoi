@@ -11,11 +11,12 @@ public class GameController : MonoBehaviour
     public Phase phase;
 
     public GameObject inventory;
+    public Transform objectLayer;
 
     private string nextAction;
     private Node targetMove;
     private GameObject targetAction;
-    private Transform objectLayer;
+    
 
 
     // Start is called before the first frame update
@@ -45,14 +46,13 @@ public class GameController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && phase == Phase.SELECTTARGET)
         {
-            Debug.Log("CLick !");
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
             if(hits.Length > 0)
             {
-                if (hits.Length == 1 && (nextAction == "Déplacer" || nextAction == "Sauter"))
+                if (hits.Length == 1)
                 {
-                    
                     SelectTargetForMove(gridSystem.NodeFromWorlPoint(hits[0].point));
                 }
                 else
@@ -131,6 +131,10 @@ public class GameController : MonoBehaviour
                 break;
             case "Sauter":
                 type = OrderType.Jump;
+                order = new Order(type, position);
+                break;
+            case "Relacher":
+                type = OrderType.Release;
                 order = new Order(type, position);
                 break;
             default:
@@ -251,30 +255,31 @@ public class GameController : MonoBehaviour
         dog.Grab(obj);
     }
 
-    public void ReleaseObject()
-    {
-        Vector3 targetPos = dog.transform.position + dog.direction;
-        if(dog.height == inventory.GetComponent<HomeObject>().size && dog.height == ObjectSize.Ground)
+    public void ReleaseObject(Vector3 targetPos)
+    {   
+        if(gridSystem.CheckIfPosIsNear(dog.gameObject, targetPos))
         {
-            if(gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
+            if (dog.height == inventory.GetComponent<HomeObject>().size && dog.height == ObjectSize.Ground)
             {
-                dog.Release(inventory.GetComponent<HomeObject>());
-                gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
-                ath.RemoveObjetToInventory();
-                inventory = null;
+                if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
+                {
+                    dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
+                    gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
+                    ath.RemoveObjetToInventory();
+                    inventory = null;
+                }
+            }
+            else if (dog.height == inventory.GetComponent<HomeObject>().size)
+            {
+                if (gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject == null)
+                {
+                    dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
+                    gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject = inventory.GetComponent<HomeObject>();
+                    ath.RemoveObjetToInventory();
+                    inventory = null;
+                }
             }
         }
-        else if(dog.height == inventory.GetComponent<HomeObject>().size)
-        {
-            if (gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject == null)
-            {
-                dog.Release(inventory.GetComponent<HomeObject>());
-                gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject = inventory.GetComponent<HomeObject>();
-                ath.RemoveObjetToInventory();
-                inventory = null;
-            }
-        }
-       
     }
 
     public void ExamineObject(HomeObject obj)
