@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public Phase phase;
     private string nextAction;
     private Node targetMove;
+    private GameObject targetAction;
 
 
     // Start is called before the first frame update
@@ -30,6 +31,8 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         phase = Phase.SELECTACTION;
+        targetMove = null;
+        targetAction = null;
     }
 
     // Update is called once per frame
@@ -42,12 +45,25 @@ public class GameController : MonoBehaviour
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
             if(hits.Length > 0)
             {
-                Debug.Log("Hit count = " + hits.Length);
-                Debug.Log("Next action = " + nextAction);
-                if (hits.Length == 1 && nextAction == "Déplacer")
+                if (hits.Length == 1 && (nextAction == "Déplacer" || nextAction == "Sauter"))
                 {
-                    Debug.Log("Select target");
+                    
                     SelectTargetForMove(gridSystem.NodeFromWorlPoint(hits[0].point));
+                }
+                else
+                {
+                    int i = 0;
+                    bool find = false;
+                    while(!find & i < hits.Length)
+                    {
+                        if (hits[i].collider.name != "Game")
+                        {
+                            find = true;
+                            SelectTargetForAction(hits[i].collider.gameObject);
+                        }
+
+                        ++i;
+                    }
                 }
             }
         }
@@ -70,31 +86,76 @@ public class GameController : MonoBehaviour
         ath.EnableOrDisableApplyOrderButton(true);
     }
 
+    public void SelectTargetForAction(GameObject target)
+    {
+        targetAction = target;
+        ath.AddTargetSprite(target.GetComponent<SpriteRenderer>().sprite);
+        phase = Phase.APPLYORDER;
+        ath.ChangeTodoText(phase);
+        ath.EnableOrDisableApplyOrderButton(true);
+    }
+
     public void ApplyOrder()
     {
-        Order order = CreateOrder(targetMove.worldPosition);
+        Order order;
+
+        if (targetAction == null)
+            order = CreateOrder(targetMove.worldPosition);
+        else
+            order = CreateOrder(targetAction.GetComponent<HomeObject>());
+
         order.ExecuteOrder();
+        CleanOrder();
+    }
+
+    public void CleanOrder()
+    {
+        targetAction = null;
+        targetMove = null;
     }
 
     public Order CreateOrder(Vector3 position)
     {
         OrderType type;
+        Order order;
         switch(nextAction)
         {
             case "Déplacer":
                 type = OrderType.Move;
+                order = new Order(type, position);
                 break;
             case "Sauter":
                 type = OrderType.Jump;
+                order = new Order(type, position);
                 break;
             default:
                 type = OrderType.Move;
+                order = new Order(type, position);
                 break;
 
         }
-
-        return new Order(type, position);
+        return order;
     
+    }
+
+    public Order CreateOrder(HomeObject obj)
+    {
+        OrderType type;
+        Order order;
+        switch (nextAction)
+        {
+            case "Sauter":
+                type = OrderType.Jump;
+                order = new Order(type, obj);
+                break;
+            default:
+                type = OrderType.Jump;
+                order = new Order(type, obj);
+                break;
+
+        }
+        return order;
+
     }
 
     public void MoveDog(GameObject target)
@@ -111,10 +172,11 @@ public class GameController : MonoBehaviour
 
     public void JumpTo(GameObject target)
     {
+        Debug.Log("Jump !");
         bool canJump = false;
-        if(target.GetComponent<Object>() != null)
+        if(target.GetComponent<HomeObject>() != null)
         {
-            Object targetObj = target.GetComponent<Object>();
+            HomeObject targetObj = target.GetComponent<HomeObject>();
             if(dog.height == ObjectSize.Low)
             {
                 if(targetObj.size == ObjectSize.High || targetObj.size == ObjectSize.Ground)
@@ -138,7 +200,7 @@ public class GameController : MonoBehaviour
             Node node = gridSystem.NodeFromWorlPoint(target.transform.position);
             if (gridSystem.CheckIfObjectIsNear(dog.gameObject, target))
             {
-                dog.height = target.GetComponent<Object>().size;
+                dog.height = target.GetComponent<HomeObject>().size;
                 dog.JumpTo(node);
             }
         }
@@ -146,6 +208,7 @@ public class GameController : MonoBehaviour
 
     public void JumpTo(Vector3 position)
     {
+        Debug.Log("Jump position !");
         Node node = gridSystem.NodeFromWorlPoint(position);
         if (dog.height == ObjectSize.Low && node.walkable && gridSystem.CheckIfPosIsNear(dog.gameObject, position))
         {

@@ -6,10 +6,10 @@ public class Order
 {
     // Attributes
     public OrderType type;
-    public Object target;
+    public HomeObject target;
     public Vector3 targetPos;
     
-    public Order (OrderType type, Object target)
+    public Order (OrderType type, HomeObject target)
     {
         this.type = type;
         this.target = target;
@@ -21,6 +21,7 @@ public class Order
         {
             this.type = type;
             this.targetPos = targetNode;
+            target = null;
         }
         
     }
@@ -50,7 +51,14 @@ public class Order
             case OrderType.Jump:
                 if (targetPos != null)
                 {
-                    GameController.Instance.JumpTo(targetPos);
+                    if (target != null)
+                    {
+                        GameController.Instance.JumpTo(target.gameObject);
+                    } else if (targetPos != null)
+                    {
+                        GameController.Instance.JumpTo(targetPos);
+                    }
+                    
                 }
                 else
                 {
