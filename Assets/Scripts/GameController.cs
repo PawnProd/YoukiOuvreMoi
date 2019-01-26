@@ -108,20 +108,24 @@ public class GameController : MonoBehaviour
     public Order CreateOrder(Vector3 position)
     {
         OrderType type;
+        Order order;
         switch(nextAction)
         {
             case "Déplacer":
                 type = OrderType.Move;
+                order = new Order(type, position);
                 break;
             case "Sauter":
                 type = OrderType.Jump;
+                order = new Order(type, position);
                 break;
             default:
                 type = OrderType.Move;
+                order = new Order(type, position);
                 break;
 
         }
-        return new Order(type, position);
+        return order;
     
     }
 
