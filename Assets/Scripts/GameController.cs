@@ -57,6 +57,20 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+        if (phase != Phase.APPLYORDER)
+        {
+            if (gridSystem.NodeFromWorlPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)) != null)
+            {
+                ath.cursorOverlay.gameObject.SetActive(true);
+                ath.MoveCursorOverlay(gridSystem.NodeFromWorlPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)).worldPosition);
+            }
+            else
+            {
+                ath.cursorOverlay.gameObject.SetActive(false);
+            }
+                
+        }
+           
     }
 
     public void SelectAction(string actionName)
@@ -86,6 +100,7 @@ public class GameController : MonoBehaviour
         phase = Phase.APPLYORDER;
         ath.ChangeTodoText(phase);
         ath.EnableOrDisableApplyOrderButton(true);
+        ath.MoveCursorOverlay(node.worldPosition);
     }
 
     public void ApplyOrder()

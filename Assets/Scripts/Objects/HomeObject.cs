@@ -86,7 +86,7 @@ public class HomeObject : MonoBehaviour
             gameObject.SetActive(false);
 
             grabed = true;
-
+            GameController.Instance.phase = Phase.SELECTACTION;
             return actionSuccessful;
         } else {
             return grabable;
@@ -111,7 +111,7 @@ public class HomeObject : MonoBehaviour
                     GameController.Instance.EndOfGame();
                 }
             }
-
+            GameController.Instance.phase = Phase.SELECTACTION;
             return actionSuccessful;
         }
         else
@@ -164,6 +164,7 @@ public class HomeObject : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
+        GameController.Instance.phase = Phase.SELECTACTION;
         yield return null;
     }
 }

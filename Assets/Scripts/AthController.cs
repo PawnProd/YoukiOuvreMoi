@@ -15,6 +15,8 @@ public class AthController : MonoBehaviour
 
     public Transform inventoryContent;
 
+    public Transform cursorOverlay;
+
     public void InitOrder(string actionName)
     {
         orderPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionName;
@@ -66,6 +68,11 @@ public class AthController : MonoBehaviour
         objet.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
         objet.transform.parent = inventoryContent;
         objet.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+    }
+
+    public void MoveCursorOverlay(Vector3 destination)
+    {
+        cursorOverlay.transform.position = destination;
     }
 
     public void RemoveObjetToInventory()
