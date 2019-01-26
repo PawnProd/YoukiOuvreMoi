@@ -99,6 +99,12 @@ public class GridSystem : MonoBehaviour
         return neighbours;
     }
 
+    public void SwitchWalkableNode(Node lastNode, Node newNode)
+    {
+        lastNode.walkable = true;
+        newNode.walkable = false;
+    }
+
     public void UpdateWalkableNode(ObjectSize size, Node origin)
     {
         List<Node> neighbours = GetNeighbours(origin);

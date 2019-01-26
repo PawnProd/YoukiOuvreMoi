@@ -240,6 +240,7 @@ public class GameController : MonoBehaviour
         Debug.Log(targetPos);
         if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
         {
+            gridSystem.SwitchWalkableNode(gridSystem.NodeFromWorlPoint(position), gridSystem.NodeFromWorlPoint(targetPos));
             dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>(), gridSystem.NodeFromWorlPoint(targetPos).worldPosition);
             gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = gridSystem.NodeFromWorlPoint(position).objectOnNode;
             gridSystem.NodeFromWorlPoint(position).objectOnNode = null;
