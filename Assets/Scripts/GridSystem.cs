@@ -34,6 +34,12 @@ public class GridSystem : MonoBehaviour
         }
     }
 
+    public void ChangeNodeState(Vector3 position, bool walkable)
+    {
+        Node node = NodeFromWorlPoint(position);
+        node.walkable = walkable;
+    }
+
     public List<Node> GetNeighbours(Node node)
     {
         List<Node> neighbours = new List<Node>();
@@ -100,9 +106,6 @@ public class GridSystem : MonoBehaviour
     {
         Node startNode = NodeFromWorlPoint(startPosition);
         Node endNode = NodeFromWorlPoint(destination);
-
-        Debug.Log("Start Node position = " + startNode.worldPosition);
-        Debug.Log("End Node position = " + endNode.worldPosition);
 
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
