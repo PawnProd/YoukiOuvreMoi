@@ -20,6 +20,26 @@ public class Dog : MonoBehaviour
         StartCoroutine(CO_Move(nodes));
     }
 
+    public void Push(Object objToPush)
+    {
+        objToPush.BeingPushed(this);
+    }
+
+    public void Grab(Object objToGrab)
+    {
+        objToGrab.BeingGrabed(this);
+    }
+
+    public void Release(Object objToRelease)
+    {
+        objToRelease.BeingReleased(this);
+    }
+
+    public void Examine(Object objToExamine)
+    {
+        objToExamine.BeingExamined(this);
+    }
+
     IEnumerator CO_Move(List<Node> path)
     {
         foreach(Node node in path)
