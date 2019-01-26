@@ -9,6 +9,7 @@ public class GridSystem : MonoBehaviour
 
     private Node[,] grid;
     private List<Node> globalPath;
+    public List<Node> updatedNodes = new List<Node>();
 
     // Start is called before the first frame update
     void Awake()
@@ -97,6 +98,49 @@ public class GridSystem : MonoBehaviour
         }
 
         return neighbours;
+    }
+
+    public void SwitchWalkableNode(Node lastNode, Node newNode)
+    {
+        lastNode.walkable = true;
+        newNode.walkable = false;
+    }
+
+    public void UpdateWalkableNode(ObjectSize size, Node origin)
+    {
+        List<Node> neighbours = GetNeighbours(origin);
+        origin.walkable = true;
+        updatedNodes.Add(origin);
+        foreach(Node neighbour in neighbours)
+        {
+            if (NodeIsFree(neighbour))
+                continue;
+            
+            if(neighbour.objectOnNode.GetComponent<HomeObject>().size == size && !neighbour.walkable)
+            {
+                neighbour.walkable = true;
+                updatedNodes.Add(neighbour);
+                UpdateWalkableNode(size, neighbour);
+            }
+            else
+            {
+                continue;
+            }
+        }
+
+        return;
+    }
+
+    public void CleanUpdatedNode()
+    {
+        Debug.Log("Coucou !");
+        foreach(Node node in updatedNodes)
+        {
+            Debug.Log("Not walkable !");
+            node.walkable = false;
+        }
+
+        updatedNodes.Clear();
     }
 
     public Node NodeFromWorlPoint(Vector3 worlPosition)
