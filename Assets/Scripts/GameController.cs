@@ -212,6 +212,7 @@ public class GameController : MonoBehaviour
         {
             dog.JumpTo(node);
             dog.height = ObjectSize.Ground;
+            gridSystem.CleanUpdatedNode();
         }
         else
         {
@@ -224,6 +225,8 @@ public class GameController : MonoBehaviour
             {
                 dog.height = target.GetComponent<HomeObject>().size;
                 dog.JumpTo(node);
+                gridSystem.CleanUpdatedNode();
+                gridSystem.UpdateWalkableNode(dog.height, node);
             }
         }
 
