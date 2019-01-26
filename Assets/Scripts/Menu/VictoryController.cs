@@ -29,10 +29,12 @@ public class VictoryController : MonoBehaviour
     public void Victory ()
     {
         victoryStats.Find("Title").GetComponent<TextMeshProUGUI>().text = "Victoire !";
+        victoryStats.Find("[Button] Retry").gameObject.SetActive(false);
     }
 
     public void Defeat ()
     {
         victoryStats.Find("Title").GetComponent<TextMeshProUGUI>().text = "Defaite !";
+        victoryStats.Find("[Button] Next").gameObject.SetActive(false);
     }
 }
