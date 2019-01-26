@@ -13,6 +13,7 @@ public class Object : MonoBehaviour
     public GameObject key;
 
     public Object containedObject;
+    public Object onTopObject;
     
     private bool pushable;
     private bool movable;
@@ -26,13 +27,13 @@ public class Object : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pushable = weight != ObjectWeight.Unmovable;
+        pushable = weight != ObjectWeight.Unmovable && weight != ObjectWeight.Light;
         movable = weight == ObjectWeight.Light || weight == ObjectWeight.Medium;
         grabable = weight != ObjectWeight.Unmovable;
-        examinable = weight != ObjectWeight.Light || weight != ObjectWeight.Medium || !open;
+        examinable = CheckExaminable();
         grabed = false;
 
-
+        currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
     }
 
     // Update is called once per frame
@@ -41,13 +42,17 @@ public class Object : MonoBehaviour
         
     }
 
-    public bool BeingPushed (Dog dog)
+    public bool BeingPushed (Dog dog, Vector3 direction)
     {
         if (pushable)
         {
             bool actionSuccessful = false;
 
-            // TODO
+            if (onTopObject != null)
+            {
+                // TODO faire tomber l'objet
+            }
+
 
 
             return actionSuccessful;
@@ -61,10 +66,19 @@ public class Object : MonoBehaviour
         if (grabable)
         {
             bool actionSuccessful = false;
-
-            // TODO
-
-
+            switch (weight)
+            {
+                case ObjectWeight.Light:
+                    transform.SetParent(dog.transform);
+                    actionSuccessful = true;
+                    break;
+                case ObjectWeight.Medium:
+                    transform.SetParent(dog.transform);
+                    actionSuccessful = true;
+                    break;
+                default:
+                    break;
+            }
             return actionSuccessful;
         } else {
             return grabable;
@@ -94,8 +108,10 @@ public class Object : MonoBehaviour
         {
             bool actionSuccessful = false;
 
-            // TODO
-
+            if (containedObject != null)
+            {
+                // TODO mettre l'objet contenu sur la case d'en face
+            }
 
             return actionSuccessful;
         }
@@ -103,5 +119,28 @@ public class Object : MonoBehaviour
         {
             return examinable;
         }
+    }
+
+    public void Open ()
+    {
+        open = true;
+        examinable = CheckExaminable();
+    }
+
+    public bool CheckExaminable ()
+    {
+        return (weight != ObjectWeight.Light && weight != ObjectWeight.Medium) && open;
+    }
+
+    public bool MoveObject (Vector3 direction)
+    {
+        bool actionSuccessful = false;
+
+        Vector3 newPosition = transform.position + direction;
+        Node newNode = GameController.Instance.gridSystem.NodeFromWorlPoint(newPosition);
+
+        // TODO
+
+        return actionSuccessful;
     }
 }
