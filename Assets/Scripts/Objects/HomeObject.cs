@@ -108,7 +108,7 @@ public class HomeObject : MonoBehaviour
             {
                 if (verifyEndConditions())
                 {
-                    // TODO appeler la fonction de fin de scène
+                    GameController.Instance.EndOfGame();
                 }
             }
 

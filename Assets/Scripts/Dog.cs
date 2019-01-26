@@ -9,6 +9,7 @@ public class Dog : MonoBehaviour
     public Vector3 direction;
 
     public int compteurConfusion = 3;
+    public int nbOfConfusedTimes = 0;
 
     public void MoveTo(List<Node> path)
     {
@@ -51,6 +52,16 @@ public class Dog : MonoBehaviour
     public bool verifyLoosingConditions ()
     {
         return compteurConfusion <= 0;
+    }
+
+    public void BeConfused ()
+    {
+        compteurConfusion--;
+        if ( verifyLoosingConditions() )
+        {
+            nbOfConfusedTimes++;
+            // Activer Youki confus !
+        }
     }
 
     IEnumerator CO_Move(List<Node> path)
