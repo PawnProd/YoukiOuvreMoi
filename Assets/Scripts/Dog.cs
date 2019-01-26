@@ -26,14 +26,14 @@ public class Dog : MonoBehaviour
         objToPush.BeingPushed(this, Vector3.forward);
     }
 
-    public void Grab(HomeObject objToGrab)
+    public bool Grab(HomeObject objToGrab)
     {
-        objToGrab.BeingGrabed();
+        return objToGrab.BeingGrabed();
     }
 
-    public void Release(HomeObject objToRelease, Vector3 position)
+    public bool Release(HomeObject objToRelease, Vector3 position)
     {
-        objToRelease.BeingReleased(position);
+        return objToRelease.BeingReleased(position);
     }
 
     public void Examine(HomeObject objToExamine)
