@@ -27,12 +27,33 @@ public class GameController : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-            if(hit && hit.collider.GetComponent<Object>())
+            RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
+            if(hits.Length > 0)
             {
-                if(hit.collider.GetComponent<Object>().size == ObjectSize.Low)
+                foreach(RaycastHit2D hit in hits)
                 {
-                    dog.JumpTo(gridSystem.NodeFromWorlPoint(hit.point));
+                    Debug.Log("Hit name = " + hit.collider.name);
+                }
+                if(hits.Length == 1)
+                {
+                    Debug.Log("J'ai cliqué sur Game");
+                    JumpTo(hits[0].point);
+                }
+                else
+                {
+                    int i = 0;
+                    bool find = false;
+
+                    while(!find && i < hits.Length)
+                    {
+                        if(hits[i].collider.name != "Game")
+                        {
+                            find = true;
+                            JumpTo(hits[i].collider.gameObject);
+                        }
+
+                        ++i;
+                    }
                 }
             }
         }
@@ -48,5 +69,50 @@ public class GameController : MonoBehaviour
     {
         gridSystem.FindPath(dog.transform.position, position);
         dog.MoveTo(gridSystem.GetGlobalPath());
+    }
+
+    public void JumpTo(GameObject target)
+    {
+        bool canJump = false;
+        if(target.GetComponent<Object>() != null)
+        {
+            Object targetObj = target.GetComponent<Object>();
+            if(dog.height == ObjectSize.Low)
+            {
+                if(targetObj.size == ObjectSize.High || targetObj.size == ObjectSize.Ground)
+                {
+                    canJump = true;
+                }
+                    
+            }
+            else if(dog.height == ObjectSize.High || dog.height == ObjectSize.Ground)
+            {
+                if (targetObj.size == ObjectSize.Low)
+                {
+                    canJump = true;
+                }
+            }
+
+        }
+
+        if (canJump)
+        {
+            Node node = gridSystem.NodeFromWorlPoint(target.transform.position);
+            if (gridSystem.CheckIfObjectIsNear(dog.gameObject, target))
+            {
+                dog.height = target.GetComponent<Object>().size;
+                dog.JumpTo(node);
+            }
+        }
+    }
+
+    public void JumpTo(Vector3 position)
+    {
+        Node node = gridSystem.NodeFromWorlPoint(position);
+        if (dog.height == ObjectSize.Low && node.walkable && gridSystem.CheckIfPosIsNear(dog.gameObject, position))
+        {
+            dog.JumpTo(node);
+            dog.height = ObjectSize.Ground;
+        }
     }
 }

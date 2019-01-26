@@ -67,9 +67,8 @@ public class GridSystem : MonoBehaviour
 
     public Node NodeFromWorlPoint(Vector3 worlPosition)
     {
-        int x = (int)(worlPosition.x - tileMap.tileAnchor.x);
-        int y = (int)(worlPosition.y - tileMap.tileAnchor.y);
-
+        int x = (int)worlPosition.x;
+        int y = (int)worlPosition.y;
         return grid[x, y];
     }
 
@@ -100,6 +99,18 @@ public class GridSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool CheckIfObjectIsNear(GameObject player, GameObject target)
+    {
+        List<Node> neighbours = GetNeighbours(NodeFromWorlPoint(player.transform.position));
+        return neighbours.Find(x => x.worldPosition == NodeFromWorlPoint(target.transform.position).worldPosition) != null;
+    }
+
+    public bool CheckIfPosIsNear(GameObject player, Vector3 position)
+    {
+        List<Node> neighbours = GetNeighbours(NodeFromWorlPoint(player.transform.position));
+        return neighbours.Find(x => x.worldPosition == NodeFromWorlPoint(position).worldPosition) != null;
     }
 
     // Update is called once per frame
