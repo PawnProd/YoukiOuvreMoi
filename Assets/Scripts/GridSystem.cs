@@ -48,6 +48,20 @@ public class GridSystem : MonoBehaviour
         }
     }
 
+    public void PlaceObjectOnNodes(Transform layerObject)
+    {
+        foreach(Transform child in layerObject)
+        {
+            Node node = NodeFromWorlPoint(child.position);
+            node.objectOnNode = child.gameObject;
+        }
+    }
+
+    public bool NodeIsFree(Node node)
+    {
+        return node.objectOnNode == null;
+    }
+
     public void ChangeNodeState(Vector3 position, bool walkable)
     {
         Node node = NodeFromWorlPoint(position);
@@ -127,10 +141,6 @@ public class GridSystem : MonoBehaviour
         return neighbours.Find(x => x.worldPosition == NodeFromWorlPoint(position).worldPosition) != null;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     public void FindPath(Vector3 startPosition, Vector3 destination)
     {

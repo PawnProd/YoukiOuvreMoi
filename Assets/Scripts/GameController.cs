@@ -9,9 +9,13 @@ public class GameController : MonoBehaviour
     public GridSystem gridSystem;
     public Dog dog;
     public Phase phase;
+
+    public GameObject inventory;
+    public Transform objectLayer;
+
     private string nextAction;
-    private Node targetMove;
-    private GameObject targetAction;
+    private Node target;
+    
 
 
     // Start is called before the first frame update
@@ -31,8 +35,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         phase = Phase.SELECTACTION;
-        targetMove = null;
-        targetAction = null;
+        gridSystem.PlaceObjectOnNodes(objectLayer);
     }
 
     // Update is called once per frame
@@ -40,30 +43,18 @@ public class GameController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && phase == Phase.SELECTTARGET)
         {
-            Debug.Log("CLick !");
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D[] hits = Physics2D.RaycastAll(ray.origin, ray.direction);
             if(hits.Length > 0)
             {
-                if (hits.Length == 1 && (nextAction == "Déplacer" || nextAction == "Sauter"))
+                if(hits[0].collider.name == "Game")
                 {
-                    
-                    SelectTargetForMove(gridSystem.NodeFromWorlPoint(hits[0].point));
+                    SelectTarget(gridSystem.NodeFromWorlPoint(hits[0].point));
                 }
                 else
                 {
-                    int i = 0;
-                    bool find = false;
-                    while(!find & i < hits.Length)
-                    {
-                        if (hits[i].collider.name != "Game")
-                        {
-                            find = true;
-                            SelectTargetForAction(hits[i].collider.gameObject);
-                        }
-
-                        ++i;
-                    }
+                    SelectTarget(hits[0].collider.GetComponent<HomeObject>().currentNode);
                 }
             }
         }
@@ -77,19 +68,22 @@ public class GameController : MonoBehaviour
         ath.ChangeTodoText(phase);
     }
 
-    public void SelectTargetForMove(Node node)
+    public void SelectTarget(Node node)
     {
-        targetMove = node;
-        ath.AddTargetSprite(ath.GetSpriteOfTile(node.type));
-        phase = Phase.APPLYORDER;
-        ath.ChangeTodoText(phase);
-        ath.EnableOrDisableApplyOrderButton(true);
-    }
-
-    public void SelectTargetForAction(GameObject target)
-    {
-        targetAction = target;
-        ath.AddTargetSprite(target.GetComponent<SpriteRenderer>().sprite);
+        target = node;
+        if(node.objectOnNode == null)
+        {
+            ath.AddTargetSprite(ath.GetSpriteOfTile(node.type));
+        }
+        else if(node.objectOnNode.GetComponent<HomeObject>().onTopObject == null)
+        {
+            ath.AddTargetSprite(node.objectOnNode.GetComponent<SpriteRenderer>().sprite);
+        }
+        else
+        {
+            ath.AddTargetSprite(node.objectOnNode.GetComponent<HomeObject>().onTopObject.GetComponent<SpriteRenderer>().sprite);
+        }
+        
         phase = Phase.APPLYORDER;
         ath.ChangeTodoText(phase);
         ath.EnableOrDisableApplyOrderButton(true);
@@ -97,21 +91,9 @@ public class GameController : MonoBehaviour
 
     public void ApplyOrder()
     {
-        Order order;
-
-        if (targetAction == null)
-            order = CreateOrder(targetMove.worldPosition);
-        else
-            order = CreateOrder(targetAction.GetComponent<HomeObject>());
-
+        Order order = CreateOrder(target.worldPosition);
+        Debug.Log(order.type);
         order.ExecuteOrder();
-        CleanOrder();
-    }
-
-    public void CleanOrder()
-    {
-        targetAction = null;
-        targetMove = null;
     }
 
     public Order CreateOrder(Vector3 position)
@@ -123,39 +105,36 @@ public class GameController : MonoBehaviour
             case "Déplacer":
                 type = OrderType.Move;
                 order = new Order(type, position);
-                break;
+                return order;
             case "Sauter":
                 type = OrderType.Jump;
                 order = new Order(type, position);
-                break;
+                return order;
+            case "Prendre":
+                type = OrderType.Take;
+                Debug.Log(type);
+                order = new Order(type, position);
+                return order;
+            case "Relacher":
+                type = OrderType.Release;
+                order = new Order(type, position);
+                return order;
+            case "Pousser":
+                type = OrderType.Push;
+                order = new Order(type, position);
+                return order;
+            case "Examiner":
+                type = OrderType.Examine;
+                order = new Order(type, position);
+                return order;
             default:
                 type = OrderType.Move;
                 order = new Order(type, position);
-                break;
+                return order;
 
         }
-        return order;
+        
     
-    }
-
-    public Order CreateOrder(HomeObject obj)
-    {
-        OrderType type;
-        Order order;
-        switch (nextAction)
-        {
-            case "Sauter":
-                type = OrderType.Jump;
-                order = new Order(type, obj);
-                break;
-            default:
-                type = OrderType.Jump;
-                order = new Order(type, obj);
-                break;
-
-        }
-        return order;
-
     }
 
     public void MoveDog(GameObject target)
@@ -170,51 +149,104 @@ public class GameController : MonoBehaviour
         dog.MoveTo(gridSystem.GetGlobalPath());
     }
 
-    public void JumpTo(GameObject target)
+    public void JumpTo(Vector3 position)
     {
-        Debug.Log("Jump !");
+        Node node = gridSystem.NodeFromWorlPoint(position);
+        GameObject target = node.objectOnNode;
         bool canJump = false;
-        if(target.GetComponent<HomeObject>() != null)
+        if (target != null)
         {
-            HomeObject targetObj = target.GetComponent<HomeObject>();
-            if(dog.height == ObjectSize.Low)
+            if (target.GetComponent<HomeObject>() != null)
             {
-                if(targetObj.size == ObjectSize.High || targetObj.size == ObjectSize.Ground)
+                HomeObject targetObj = target.GetComponent<HomeObject>();
+                if (dog.height == ObjectSize.Low)
                 {
-                    canJump = true;
-                }
-                    
-            }
-            else if(dog.height == ObjectSize.High || dog.height == ObjectSize.Ground)
-            {
-                if (targetObj.size == ObjectSize.Low)
-                {
-                    canJump = true;
-                }
-            }
+                    if (targetObj.size == ObjectSize.High || targetObj.size == ObjectSize.Ground)
+                    {
+                        canJump = true;
+                    }
 
+                }
+                else if (dog.height == ObjectSize.High || dog.height == ObjectSize.Ground)
+                {
+                    if (targetObj.size == ObjectSize.Low)
+                    {
+                        canJump = true;
+                    }
+                }
+
+            }
+        }
+        else if (dog.height == ObjectSize.Low && node.walkable && gridSystem.CheckIfPosIsNear(dog.gameObject, position))
+        {
+            dog.JumpTo(node);
+            dog.height = ObjectSize.Ground;
         }
 
         if (canJump)
         {
-            Node node = gridSystem.NodeFromWorlPoint(target.transform.position);
             if (gridSystem.CheckIfObjectIsNear(dog.gameObject, target))
             {
                 dog.height = target.GetComponent<HomeObject>().size;
                 dog.JumpTo(node);
             }
         }
+
     }
 
-    public void JumpTo(Vector3 position)
+    public void PushObject(Vector3 position)
     {
-        Debug.Log("Jump position !");
-        Node node = gridSystem.NodeFromWorlPoint(position);
-        if (dog.height == ObjectSize.Low && node.walkable && gridSystem.CheckIfPosIsNear(dog.gameObject, position))
+       // dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.Get);
+    }
+
+    public void GrabObject(Vector3 position)
+    {
+        Debug.Log("Grab obj");
+        if (gridSystem.NodeFromWorlPoint(position).objectOnNode != null)
         {
-            dog.JumpTo(node);
-            dog.height = ObjectSize.Ground;
+            Debug.Log("Grab obj");
+            HomeObject obj = gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>();
+            inventory = obj.gameObject;
+            gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
+            ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
+            dog.Grab(obj);
         }
+       
+    }
+
+    public void ReleaseObject(Vector3 targetPos)
+    {   
+        if(gridSystem.CheckIfPosIsNear(dog.gameObject, targetPos))
+        {
+            Debug.Log("On est a côté !");
+            if (dog.height == gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size && dog.height == ObjectSize.Ground)
+            {
+                if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
+                {
+                    dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
+                    gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
+                    ath.RemoveObjetToInventory();
+                    inventory = null;
+                }
+            }
+            else if (dog.height == gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size)
+            {
+                Debug.Log("On est en hauteur !");
+                if (gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject == null)
+                {
+                    Debug.Log("Il y a rien dessus !");
+                    dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
+                    gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject = inventory.GetComponent<HomeObject>();
+                    ath.RemoveObjetToInventory();
+                    inventory = null;
+                }
+            }
+        }
+    }
+
+    public void ExamineObject(HomeObject obj)
+    {
+        dog.Examine(obj);
     }
 }
 

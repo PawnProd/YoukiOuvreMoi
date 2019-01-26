@@ -17,13 +17,9 @@ public class Order
 
     public Order(OrderType type, Vector3 targetNode)
     {
-        if (type == OrderType.Move || type == OrderType.Release || type == OrderType.Jump)
-        {
-            this.type = type;
-            this.targetPos = targetNode;
-            target = null;
-        }
-        
+        this.type = type;
+        this.targetPos = targetNode;
+        target = null;    
     }
 
     public Order (OrderType type)
@@ -36,73 +32,26 @@ public class Order
 
     public void ExecuteOrder ()
     {
+        Debug.Log("Order = " + type);
         switch (type)
         {
             case OrderType.Examine:
-                if (target != null)
-                {
-                    // TODO Appeler la fonction pour examiner un Object
-                }
-                else
-                {
-                    Debug.Log("Le Object ciblé pour l'ordre Examine est null");
-                }
+                GameController.Instance.ExamineObject(target);
                 break;
             case OrderType.Jump:
-                if (targetPos != null)
-                {
-                    if (target != null)
-                    {
-                        GameController.Instance.JumpTo(target.gameObject);
-                    } else if (targetPos != null)
-                    {
-                        GameController.Instance.JumpTo(targetPos);
-                    }
-                    
-                }
-                else
-                {
-                    Debug.Log("Le Vector3 de la position ciblée pour l'ordre Jump est null");
-                }
+                GameController.Instance.JumpTo(targetPos);
                 break;
             case OrderType.Move:
-                if (targetPos != null)
-                {
-                    GameController.Instance.MoveDog(targetPos);
-                } else
-                {
-                    Debug.Log("Le Vector3 de la position ciblée pour l'ordre Move est null");
-                }
+                GameController.Instance.MoveDog(targetPos);
                 break;
             case OrderType.Push:
-                if (target != null)
-                {
-                    // TODO Appeler la fonction pour pousser un Object
-                }
-                else
-                {
-                    Debug.Log("Le Object ciblé pour l'ordre Push est null");
-                }
+                GameController.Instance.PushObject(targetPos);
                 break;
             case OrderType.Release:
-                if (targetPos != null)
-                {
-                    // TODO Appeler la fonction pour release un Object
-                }
-                else
-                {
-                    Debug.Log("Le Vector3 de la position ciblée pour l'ordre Release est null");
-                }
+                GameController.Instance.ReleaseObject(targetPos);
                 break;
             case OrderType.Take:
-                if (target != null)
-                {
-                    // TODO Appeler la fonction pour prendre un Object
-                }
-                else
-                {
-                    Debug.Log("Le Object ciblé pour l'ordre Take est null");
-                }
+                GameController.Instance.GrabObject(targetPos);
                 break;
             case OrderType.Youki:
                 // TODO Appeler la fonction pour récupérer l'attention de Youki
