@@ -79,6 +79,7 @@ public class Dog : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+        GameController.Instance.phase = Phase.SELECTACTION;
         yield return null;
     }
 

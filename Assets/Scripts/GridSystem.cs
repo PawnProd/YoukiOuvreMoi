@@ -98,6 +98,10 @@ public class GridSystem : MonoBehaviour
     {
         int x = (int)worlPosition.x;
         int y = (int)worlPosition.y;
+
+        if (x >= grid.GetLength(0) || x < 0 || y >= grid.GetLength(1) || y < 0)
+            return null;
+
         return grid[x, y];
     }
 
