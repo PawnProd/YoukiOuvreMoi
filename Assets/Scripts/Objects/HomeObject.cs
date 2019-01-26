@@ -5,9 +5,9 @@ using UnityEngine;
 public class HomeObject : MonoBehaviour
 {
     // Attributes
-    public ObjectWeight weight;
     public ObjectSize size;
-    public Vector3 location;
+
+    public float speed;
 
     public bool open;
     public HomeObject key;
@@ -15,10 +15,10 @@ public class HomeObject : MonoBehaviour
     public HomeObject containedObject;
     public HomeObject onTopObject;
 
-    private bool pushable;
-    private bool movable;
-    private bool grabable;
-    private bool examinable;
+    public bool pushable;
+    public bool movable;
+    public bool grabable;
+    public bool examinable;
 
     private bool grabed;
 
@@ -27,10 +27,6 @@ public class HomeObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pushable = weight != ObjectWeight.Unmovable && weight != ObjectWeight.Light;
-        movable = weight == ObjectWeight.Light || weight == ObjectWeight.Medium;
-        grabable = weight != ObjectWeight.Unmovable;
-        examinable = CheckExaminable();
         grabed = false;
 
         currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
@@ -54,7 +50,7 @@ public class HomeObject : MonoBehaviour
         
     }
 
-    public bool BeingPushed (Dog dog, Vector3 direction)
+    public bool BeingPushed (Dog dog, Vector3 position)
     {
         if (pushable)
         {
@@ -62,7 +58,7 @@ public class HomeObject : MonoBehaviour
             
             if (onTopObject != null)
             {
-                onTopObject.MoveObject(transform.forward);
+                onTopObject.MoveObject(dog.transform.position);
                 onTopObject.size = ObjectSize.Ground;
 
                 if (onTopObject == key)
@@ -71,17 +67,9 @@ public class HomeObject : MonoBehaviour
                 }
             }
 
-            switch (weight)
+            if (movable)
             {
-                case ObjectWeight.Medium:
-                    MoveObject(direction);
-                    break;
-                case ObjectWeight.Heavy:
-                    // TODO Faire "vibrer" l'objet ?
-                    break;
-                default:
-                    Debug.Log("On est pas sensé avoir un objet d'un poids différent à pousser!");
-                    break;
+                MoveObject(position);
             }
 
             return actionSuccessful;
@@ -90,38 +78,27 @@ public class HomeObject : MonoBehaviour
         }
     }
 
-    public bool BeingGrabed (Dog dog)
+    public bool BeingGrabed ()
     {
         if (grabable)
         {
-            bool actionSuccessful = false;
-            switch (weight)
-            {
-                case ObjectWeight.Light:
-                    transform.SetParent(dog.transform);
-                    actionSuccessful = true;
-                    break;
-                case ObjectWeight.Medium:
-                    transform.SetParent(dog.transform);
-                    actionSuccessful = true;
-                    break;
-                default:
-                    break;
-            }
+            bool actionSuccessful = true;
+            gameObject.SetActive(false);
+            
             return actionSuccessful;
         } else {
             return grabable;
         }
     }
 
-    public bool BeingReleased (Dog dog)
+    public bool BeingReleased (Vector3 position)
     {
         if (grabed)
         {
-            bool actionSuccessful = false;
+            bool actionSuccessful = true;
 
-            // TODO changer le parent du transform via le GameController
-
+            transform.position = position;
+            gameObject.SetActive(true);
 
             return actionSuccessful;
         }
@@ -137,10 +114,9 @@ public class HomeObject : MonoBehaviour
         {
             bool actionSuccessful = false;
 
-            if (containedObject != null)
+            if (containedObject != null && open)
             {
-                containedObject.gameObject.SetActive(true);
-                containedObject.MoveObject(transform.forward);
+                containedObject.gameObject.SetActive(false);
                 containedObject.size = ObjectSize.Ground;
             }
 
@@ -155,23 +131,21 @@ public class HomeObject : MonoBehaviour
     public void Open ()
     {
         open = true;
-        examinable = CheckExaminable();
     }
 
-    public bool CheckExaminable ()
+    public void MoveObject (Vector3 position)
     {
-        return (weight != ObjectWeight.Light && weight != ObjectWeight.Medium) && open;
+        StartCoroutine(CO_Move(position));
     }
 
-    public bool MoveObject (Vector3 direction)
+
+    IEnumerator CO_Move (Vector3 position)
     {
-        bool actionSuccessful = false;
-
-        Vector3 newPosition = transform.position + direction;
-        Node newNode = GameController.Instance.gridSystem.NodeFromWorlPoint(newPosition);
-
-        // TODO
-
-        return actionSuccessful;
+        while ((position - transform.position).sqrMagnitude != 0)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, position, speed * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
     }
 }
