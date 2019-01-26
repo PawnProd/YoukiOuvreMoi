@@ -7,7 +7,7 @@ public class HomeObject : MonoBehaviour
     // Attributes
     public ObjectSize size;
 
-    public float speed;
+    public float speed = 1.0f;
 
     public bool open;
     public HomeObject key;
