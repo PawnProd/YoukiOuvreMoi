@@ -7,6 +7,8 @@ public class HomeObject : MonoBehaviour
     // Attributes
     public ObjectSize size;
 
+    public float speed;
+
     public bool open;
     public HomeObject key;
     
@@ -48,7 +50,7 @@ public class HomeObject : MonoBehaviour
         
     }
 
-    public bool BeingPushed (Dog dog, Vector3 direction)
+    public bool BeingPushed (Dog dog, Vector3 position)
     {
         if (pushable)
         {
@@ -56,7 +58,7 @@ public class HomeObject : MonoBehaviour
             
             if (onTopObject != null)
             {
-                onTopObject.MoveObject(transform.forward);
+                onTopObject.MoveObject(dog.transform.position);
                 onTopObject.size = ObjectSize.Ground;
 
                 if (onTopObject == key)
@@ -67,7 +69,7 @@ public class HomeObject : MonoBehaviour
 
             if (movable)
             {
-                MoveObject(direction);
+                MoveObject(position);
             }
 
             return actionSuccessful;
@@ -76,12 +78,12 @@ public class HomeObject : MonoBehaviour
         }
     }
 
-    public bool BeingGrabed (Dog dog)
+    public bool BeingGrabed ()
     {
         if (grabable)
         {
             bool actionSuccessful = true;
-            transform.SetParent(dog.transform);
+            gameObject.SetActive(false);
             
             return actionSuccessful;
         } else {
@@ -89,14 +91,14 @@ public class HomeObject : MonoBehaviour
         }
     }
 
-    public bool BeingReleased (Dog dog)
+    public bool BeingReleased (Vector3 position)
     {
         if (grabed)
         {
-            bool actionSuccessful = false;
+            bool actionSuccessful = true;
 
-            // TODO changer le parent du transform via le GameController
-
+            transform.position = position;
+            gameObject.SetActive(true);
 
             return actionSuccessful;
         }
@@ -114,8 +116,7 @@ public class HomeObject : MonoBehaviour
 
             if (containedObject != null && open)
             {
-                containedObject.gameObject.SetActive(true);
-                containedObject.MoveObject(transform.forward);
+                containedObject.gameObject.SetActive(false);
                 containedObject.size = ObjectSize.Ground;
             }
 
@@ -132,15 +133,19 @@ public class HomeObject : MonoBehaviour
         open = true;
     }
 
-    public bool MoveObject (Vector3 direction)
+    public void MoveObject (Vector3 position)
     {
-        bool actionSuccessful = false;
+        StartCoroutine(CO_Move(position));
+    }
 
-        Vector3 newPosition = transform.position + direction;
-        Node newNode = GameController.Instance.gridSystem.NodeFromWorlPoint(newPosition);
 
-        // TODO
-
-        return actionSuccessful;
+    IEnumerator CO_Move (Vector3 position)
+    {
+        while ((position - transform.position).sqrMagnitude != 0)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, position, speed * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
     }
 }
