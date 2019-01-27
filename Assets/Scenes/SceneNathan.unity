@@ -3805,6 +3805,7 @@ MonoBehaviour:
   examinable: 1
   title: 
   content: 
+  spriteOuvert: {fileID: 0}
 --- !u!1 &506424262
 GameObject:
   m_ObjectHideFlags: 0
@@ -4057,6 +4058,7 @@ MonoBehaviour:
   examinable: 0
   title: 
   content: 
+  spriteOuvert: {fileID: 0}
 --- !u!1 &641684706
 GameObject:
   m_ObjectHideFlags: 0
@@ -4154,7 +4156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &652471777
 Transform:
   m_ObjectHideFlags: 0
@@ -4267,6 +4269,7 @@ MonoBehaviour:
   examinable: 0
   title: 
   content: 
+  spriteOuvert: {fileID: 0}
 --- !u!1001 &838843358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4556,6 +4559,7 @@ MonoBehaviour:
   examinable: 0
   title: 
   content: 
+  spriteOuvert: {fileID: 0}
 --- !u!1001 &1373817692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5084,6 +5088,7 @@ MonoBehaviour:
   examinable: 0
   title: 
   content: 
+  spriteOuvert: {fileID: 0}
 --- !u!1 &1861520933
 GameObject:
   m_ObjectHideFlags: 0
@@ -5215,6 +5220,7 @@ MonoBehaviour:
   examinable: 0
   title: 
   content: 
+  spriteOuvert: {fileID: 0}
 --- !u!1 &1864696218
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,14 +26,21 @@ public class Dog : MonoBehaviour
 
     public void JumpTo(Node node, bool up)
     {
-        GetComponent<SpriteRenderer>().sortingOrder = node.objectOnNode.GetComponent<SpriteRenderer>().sortingOrder + ((up) ? 1 : -1);
+        if(up)
+        {
+            GetComponent<SpriteRenderer>().sortingOrder = node.objectOnNode.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        }
+        
         animator.SetBool("Jumping", true);
         
-        StartCoroutine(CO_Jump(node));
+        StartCoroutine(CO_Jump(node, up));
     }
 
     public void Push(HomeObject objToPush, Vector3 position)
     {
+        animator.SetTrigger("Push");
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
         if ( !objToPush.BeingPushed(this, position))
         {
             BeConfused();
@@ -42,16 +49,25 @@ public class Dog : MonoBehaviour
 
     public bool Grab(HomeObject objToGrab)
     {
+        animator.SetTrigger("Interact");
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
         return objToGrab.BeingGrabed();
     }
 
     public bool Release(HomeObject objToRelease, Vector3 position)
     {
+        animator.SetTrigger("Interact");
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
         return objToRelease.BeingReleased(position);
     }
 
     public void Examine(HomeObject objToExamine)
     {
+        animator.SetTrigger("Interact");
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
         if ( !objToExamine.BeingExamined(this) )
         {
             BeConfused();
@@ -88,7 +104,6 @@ public class Dog : MonoBehaviour
             if(i < path.Count - 2)
             {
                 CalculDirection(node, path[i + 1]);
-                Debug.Log("Direction = " + direction);
                 animator.SetFloat("DirX", direction.x);
                 animator.SetFloat("DirY", direction.y);
             }
@@ -105,7 +120,7 @@ public class Dog : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator CO_Jump(Node destination)
+    IEnumerator CO_Jump(Node destination, bool up)
     {
         CalculDirection(GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position), destination);
         animator.SetFloat("DirX", direction.x);
@@ -118,6 +133,18 @@ public class Dog : MonoBehaviour
         animator.SetBool("Jumping", false);
         GameController.Instance.phase = Phase.SELECTACTION;
         GameController.Instance.ath.CleanOrder();
+        if(!up)
+        {
+            if(destination.objectOnNode == null)
+            {
+                GetComponent<SpriteRenderer>().sortingOrder = 2;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().sortingOrder = destination.objectOnNode.GetComponent<SpriteRenderer>().sortingOrder - 1;
+            }
+            
+        }
         yield return null;
     }
 
