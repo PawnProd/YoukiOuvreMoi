@@ -164,7 +164,11 @@ public class HomeObject : MonoBehaviour
     public void Open ()
     {
         examinable = true;
-        transform.GetComponent<SpriteRenderer>().sprite = spriteOuvert;
+        if (spriteOuvert != null)
+        {
+            transform.GetComponent<SpriteRenderer>().sprite = spriteOuvert;
+        }
+        
     }
 
     public void MoveObject (Vector3 position)
