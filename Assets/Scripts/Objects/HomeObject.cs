@@ -70,6 +70,7 @@ public class HomeObject : MonoBehaviour
                 }
                 onTopObject.size = ObjectSize.Ground;
                 onTopObject.MoveObject(dog.transform.position);
+                GameController.Instance.gridSystem.NodeFromWorlPoint(dog.transform.position).objectOnNode = onTopObject.gameObject;
                 onTopObject = null;
             }
 
