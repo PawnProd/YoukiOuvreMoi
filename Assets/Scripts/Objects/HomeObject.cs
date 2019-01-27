@@ -61,8 +61,13 @@ public class HomeObject : MonoBehaviour
             
             if (onTopObject != null)
             {
+                if (onTopObject == key)
+                {
+                    Open();
+                }
                 onTopObject.MoveObject(dog.transform.position);
                 onTopObject.size = ObjectSize.Ground;
+                onTopObject.MoveObject(dog.transform.position);
                 onTopObject = null;
             }
 
@@ -114,7 +119,7 @@ public class HomeObject : MonoBehaviour
                 }
             }
 
-            if (gameObject.tag.Equals("Tips") && GameObject.FindGameObjectWithTag("FinalKey").transform.position == transform.position)
+            if (gameObject.tag.Equals("Tips") && GameObject.FindGameObjectWithTag("Door").transform.position == transform.position)
             {
                 GameController.Instance.ath.LoadTips(title, content, this.gameObject);
             }
@@ -149,6 +154,11 @@ public class HomeObject : MonoBehaviour
         {
             return examinable;
         }
+    }
+
+    public void Open ()
+    {
+        examinable = true;
     }
 
     public void MoveObject (Vector3 position)

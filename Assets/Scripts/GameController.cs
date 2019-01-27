@@ -79,13 +79,15 @@ public class GameController : MonoBehaviour
         target = node;
         if(node.objectOnNode == null)
         {
+            Debug.Log("Pas d'objet");
             ath.AddTargetSprite(ath.GetSpriteOfTile(node.type));
         }
-        else if(node.objectOnNode != null && dog.height == node.objectOnNode.GetComponent<HomeObject>().size)
+        else if(node.objectOnNode != null)
         {
+            Debug.Log("objet");
             ath.AddTargetSprite(node.objectOnNode.GetComponent<SpriteRenderer>().sprite);
         }
-        else if(node.objectOnNode.GetComponent<HomeObject>().onTopObject != null && dog.height == node.objectOnNode.GetComponent<HomeObject>().onTopObject.size)
+        else if(node.objectOnNode.GetComponent<HomeObject>().onTopObject != null)
         {
             ath.AddTargetSprite(node.objectOnNode.GetComponent<HomeObject>().onTopObject.GetComponent<SpriteRenderer>().sprite);
         }
