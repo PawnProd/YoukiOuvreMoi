@@ -251,11 +251,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4255771668539841718, guid: ddcb8b2983112134aa96cf3872f243fe,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8072400895623490482, guid: ddcb8b2983112134aa96cf3872f243fe,
         type: 3}
       propertyPath: onTopObject
       value: 
       objectReference: {fileID: 1303021875}
+    - target: {fileID: 8072400895623490482, guid: ddcb8b2983112134aa96cf3872f243fe,
+        type: 3}
+      propertyPath: key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8072400895623490482, guid: ddcb8b2983112134aa96cf3872f243fe,
+        type: 3}
+      propertyPath: spriteOuvert
+      value: 
+      objectReference: {fileID: 21300002, guid: d9cc2ff182f5dc64ebdcb6583f440eb0,
+        type: 3}
+    - target: {fileID: 8072400895623490482, guid: ddcb8b2983112134aa96cf3872f243fe,
+        type: 3}
+      propertyPath: size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3034682367544502000, guid: ddcb8b2983112134aa96cf3872f243fe,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddcb8b2983112134aa96cf3872f243fe, type: 3}
 --- !u!1 &506424262
@@ -520,12 +546,13 @@ PrefabInstance:
     - target: {fileID: 2280151151446077216, guid: 5818fe35dee6b96419df4de4969bd1ba,
         type: 3}
       propertyPath: title
-      value: 'tips #02'
+      value: 'tips #03'
       objectReference: {fileID: 0}
     - target: {fileID: 2280151151446077216, guid: 5818fe35dee6b96419df4de4969bd1ba,
         type: 3}
       propertyPath: content
-      value: Youki like to jump on my table, stop youki !
+      value: the key is on the ege of the shelf, just kick the shelf and it fells
+        !
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5818fe35dee6b96419df4de4969bd1ba, type: 3}
@@ -633,7 +660,7 @@ PrefabInstance:
     - target: {fileID: 4339313770673042872, guid: aaef2ed795a0d6147b0b42668b84866b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.5
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 4339313770673042872, guid: aaef2ed795a0d6147b0b42668b84866b,
         type: 3}
@@ -4750,7 +4777,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 1f46559e54f5fdf47974c3b10ebacffe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5358,6 +5385,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3412754394372367492, guid: d9c62f1fca6887145aed147ef98a919d,
         type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727164316, guid: d9c62f1fca6887145aed147ef98a919d, type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727164316, guid: d9c62f1fca6887145aed147ef98a919d, type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
