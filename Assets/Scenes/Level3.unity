@@ -344,6 +344,11 @@ PrefabInstance:
       propertyPath: containedObject
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 538352767336324742, guid: aaef2ed795a0d6147b0b42668b84866b,
+        type: 3}
+      propertyPath: size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4854269886822530497, guid: aaef2ed795a0d6147b0b42668b84866b,
         type: 3}
       propertyPath: m_SortingOrder
@@ -6342,12 +6347,12 @@ PrefabInstance:
         type: 3}
       propertyPath: containedObject
       value: 
-      objectReference: {fileID: 1344205112}
+      objectReference: {fileID: 0}
     - target: {fileID: 5981037972045206757, guid: ca6524c5dba21ad47b9afac49b870356,
         type: 3}
       propertyPath: onTopObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1344205112}
     - target: {fileID: 5981037972045206757, guid: ca6524c5dba21ad47b9afac49b870356,
         type: 3}
       propertyPath: pushable
@@ -6479,6 +6484,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4417264533118797702, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: cursorOverlay
+      value: 
+      objectReference: {fileID: 1888627308}
     - target: {fileID: 4417264533118797701, guid: d9c62f1fca6887145aed147ef98a919d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6584,11 +6594,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4417264533118797702, guid: d9c62f1fca6887145aed147ef98a919d,
-        type: 3}
-      propertyPath: cursorOverlay
-      value: 
-      objectReference: {fileID: 1888627308}
     - target: {fileID: 26139321384808364, guid: d9c62f1fca6887145aed147ef98a919d,
         type: 3}
       propertyPath: m_havePropertiesChanged
