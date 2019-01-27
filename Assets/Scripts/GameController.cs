@@ -135,6 +135,7 @@ public class GameController : MonoBehaviour
         Order order = CreateOrder(target.worldPosition);
         giveOrderSource.Play();
         order.ExecuteOrder();
+        ath.EnableOrDisableApplyOrderButton(false);
     }
 
     public Order CreateOrder(Vector3 position)
