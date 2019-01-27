@@ -69,7 +69,33 @@ public class GameController : MonoBehaviour
     public void SelectAction(string actionName)
     {
         nextAction = actionName;
-        ath.InitOrder(actionName);
+        int indexImgAction = 0;
+        switch(actionName)
+        {
+            case "Bouge":
+                indexImgAction = 0;
+                break;
+            case "Saute":
+                indexImgAction = 1;
+                break;
+            case "Ramasse":
+                indexImgAction = 2;
+                break;
+            case "Lache":
+                indexImgAction = 2;
+                break;
+            case "Pousse":
+                indexImgAction = 3;
+                break;
+            case "Cherche":
+                indexImgAction = 2;
+                break;
+            default:
+                indexImgAction = 0;
+                break;
+
+        }
+        ath.InitOrder(actionName, indexImgAction);
         phase = Phase.SELECTTARGET;
         ath.ChangeTodoText(phase);
     }

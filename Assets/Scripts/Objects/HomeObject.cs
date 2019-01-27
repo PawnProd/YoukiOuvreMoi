@@ -91,6 +91,7 @@ public class HomeObject : MonoBehaviour
 
             grabed = true;
             GameController.Instance.phase = Phase.SELECTACTION;
+            GameController.Instance.ath.CleanOrder();
             return actionSuccessful;
         } else {
             return grabable;
@@ -124,6 +125,7 @@ public class HomeObject : MonoBehaviour
                 GameController.Instance.ath.LoadTips(title, content, this.gameObject);
             }
             GameController.Instance.phase = Phase.SELECTACTION;
+            GameController.Instance.ath.CleanOrder();
             return actionSuccessful;
         }
         else
@@ -147,7 +149,8 @@ public class HomeObject : MonoBehaviour
                 containedObject.currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(containedObject.transform.position);
                 containedObject = null;
             }
-
+            GameController.Instance.phase = Phase.SELECTACTION;
+            GameController.Instance.ath.CleanOrder();
             return actionSuccessful;
         }
         else
@@ -181,6 +184,7 @@ public class HomeObject : MonoBehaviour
         currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
         GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position).objectOnNode = gameObject;
         GameController.Instance.phase = Phase.SELECTACTION;
+        GameController.Instance.ath.CleanOrder();
         yield return null;
     }
 }
