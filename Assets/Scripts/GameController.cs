@@ -13,6 +13,12 @@ public class GameController : MonoBehaviour
     public GameObject inventory;
     public Transform objectLayer;
 
+    public AudioClip winSong;
+    public AudioClip failedSong;
+    public AudioSource jingleSource;
+    public AudioSource confusedSource;
+    public AudioSource giveOrderSource;
+
     private string nextAction;
     private Node target;
 
@@ -127,7 +133,7 @@ public class GameController : MonoBehaviour
     public void ApplyOrder()
     {
         Order order = CreateOrder(target.worldPosition);
-        Debug.Log(order.type);
+        giveOrderSource.Play();
         order.ExecuteOrder();
     }
 
@@ -413,9 +419,13 @@ public class GameController : MonoBehaviour
         if (victory)
         {
             ath.GetComponent<VictoryController>().Victory();
+            jingleSource.clip = winSong;
+            jingleSource.Play();
         } else
         {
             ath.GetComponent<VictoryController>().Defeat();
+            jingleSource.clip = failedSong;
+            jingleSource.Play();
         }
     }
 }
