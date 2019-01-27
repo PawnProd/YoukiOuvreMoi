@@ -25,13 +25,13 @@ public class AthController : MonoBehaviour
 
     public void InitOrder(string actionName)
     {
-        orderPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionName;
+        orderPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionName + " !";
         
     }
 
     public void AddTargetSprite(Sprite targetSprite)
     {
-        orderPanel.GetChild(2).GetComponent<Image>().sprite = targetSprite;
+        orderPanel.GetChild(orderPanel.childCount - 1).GetComponent<Image>().sprite = targetSprite;
     }
 
     public void EnableOrDisableApplyOrderButton(bool enable)
