@@ -27,6 +27,8 @@ public class HomeObject : MonoBehaviour
     public string title;
     public string content;
 
+    public Sprite spriteOuvert;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,7 +68,6 @@ public class HomeObject : MonoBehaviour
                 {
                     Open();
                 }
-                onTopObject.MoveObject(dog.transform.position);
                 onTopObject.size = ObjectSize.Ground;
                 onTopObject.MoveObject(dog.transform.position);
                 onTopObject = null;
@@ -163,6 +164,7 @@ public class HomeObject : MonoBehaviour
     public void Open ()
     {
         examinable = true;
+        transform.GetComponent<SpriteRenderer>().sprite = spriteOuvert;
     }
 
     public void MoveObject (Vector3 position)

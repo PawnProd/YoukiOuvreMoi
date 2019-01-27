@@ -259,13 +259,14 @@ public class GameController : MonoBehaviour
         Vector3 targetPos = position + (position - dog.transform.position);
         Debug.Log(position - dog.transform.position);
         Debug.Log(targetPos);
-        if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
+        if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)) || (gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>() == gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject ))
         {
+            /* Ne pas décommenter ça pour le moment
             if (gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject != null)
             {
                 gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject.size = ObjectSize.Ground;
                 gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject = null;
-            }
+            }*/
             gridSystem.SwitchWalkableNode(gridSystem.NodeFromWorlPoint(position), gridSystem.NodeFromWorlPoint(targetPos));
             dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>(), gridSystem.NodeFromWorlPoint(targetPos).worldPosition);
             gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = gridSystem.NodeFromWorlPoint(position).objectOnNode;
