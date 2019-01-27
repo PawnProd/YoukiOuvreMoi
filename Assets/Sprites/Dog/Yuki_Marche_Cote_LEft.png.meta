@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 64096b5618c0c9d41b568c0c783b1724
+guid: 04aa7b46dbf7eec4fadba1be283006ef
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Yuki_Marche_Cote_0
-    21300002: Yuki_Marche_Cote_1
-    21300004: Yuki_Marche_Cote_2
-    21300006: Yuki_Marche_Cote_3
-    21300008: Yuki_Marche_Cote_4
-    21300010: Yuki_Marche_Cote_5
-    21300012: Yuki_Marche_Cote_6
-    21300014: Yuki_Marche_Cote_7
+    21300000: Yuki_Marche_Cote_LEft_0
+    21300002: Yuki_Marche_Cote_LEft_1
+    21300004: Yuki_Marche_Cote_LEft_2
+    21300006: Yuki_Marche_Cote_LEft_3
+    21300008: Yuki_Marche_Cote_LEft_4
+    21300010: Yuki_Marche_Cote_LEft_5
+    21300012: Yuki_Marche_Cote_LEft_6
+    21300014: Yuki_Marche_Cote_LEft_7
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -92,7 +92,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_0
+      name: Yuki_Marche_Cote_LEft_0
       rect:
         serializedVersion: 2
         x: 0
@@ -106,13 +106,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be4ead40c9b569b43a79677ed6b255f9
+      spriteID: be18c180e4d1e22448a206efec77ed7a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_1
+      name: Yuki_Marche_Cote_LEft_1
       rect:
         serializedVersion: 2
         x: 128
@@ -126,13 +126,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16717235e02531241afa351039ebce91
+      spriteID: 32d73e14dc505db419ee65ee1e5a4b78
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_2
+      name: Yuki_Marche_Cote_LEft_2
       rect:
         serializedVersion: 2
         x: 256
@@ -146,13 +146,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3e957d6d66663c49b05a917a082146d
+      spriteID: 38e725dabd3584f4d813f75cea7a16b3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_3
+      name: Yuki_Marche_Cote_LEft_3
       rect:
         serializedVersion: 2
         x: 0
@@ -166,13 +166,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40eed92fd1063fd4081cf59cfab56402
+      spriteID: 170d8febc092e4b4b9231aa6646f2bb1
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_4
+      name: Yuki_Marche_Cote_LEft_4
       rect:
         serializedVersion: 2
         x: 128
@@ -186,13 +186,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05d558d83f419d44ebd709aec9a0b8ee
+      spriteID: d3473861302b2f5428337ff0d7ac9e32
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_5
+      name: Yuki_Marche_Cote_LEft_5
       rect:
         serializedVersion: 2
         x: 256
@@ -206,33 +206,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17176057f607e1d43aa18b9adfb9bd22
+      spriteID: 61239e577b0e2374da51f32af341998f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e539ed030501e1a42a6c3d1e2f76db0e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yuki_Marche_Cote_7
+      name: Yuki_Marche_Cote_LEft_6
       rect:
         serializedVersion: 2
         x: 128
@@ -246,7 +226,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d28b5c8ad05aa74cb953fce59395b19
+      spriteID: db1f4954b2b99b94fb15148a2201c5d7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Yuki_Marche_Cote_LEft_7
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 784d389d428e1254b8793cb3429d8463
       vertices: []
       indices: 
       edges: []
@@ -254,7 +254,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 839dc86d84eacb444bd1a13cb55d5031
+    spriteID: 88b9a7a3bd2e507429fad005162fbe86
     vertices: []
     indices: 
     edges: []

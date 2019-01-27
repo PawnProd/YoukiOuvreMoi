@@ -11,8 +11,16 @@ public class Dog : MonoBehaviour
     public int compteurConfusion = 3;
     public int nbOfConfusedTimes = 0;
 
+    public Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     public void MoveTo(List<Node> path)
     {
+        animator.SetBool("Moving", true);
         StartCoroutine(CO_Move(path));
     }
 
@@ -77,9 +85,12 @@ public class Dog : MonoBehaviour
         for(int i = 0; i < path.Count; ++i)
         {
             Node node = path[i];
-            if(i == path.Count - 2)
+            if(i < path.Count - 2)
             {
                 CalculDirection(node, path[i + 1]);
+                Debug.Log("Direction = " + direction);
+                animator.SetFloat("DirX", direction.x);
+                animator.SetFloat("DirY", direction.y);
             }
             while((node.worldPosition - transform.position).sqrMagnitude != 0)
             {
@@ -87,6 +98,7 @@ public class Dog : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+        animator.SetBool("Moving", false);
         GameController.Instance.phase = Phase.SELECTACTION;
         GameController.Instance.ath.CleanOrder();
         yield return null;
