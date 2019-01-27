@@ -1,15 +1,10 @@
 fileFormatVersion: 2
-guid: 64096b5618c0c9d41b568c0c783b1724
+guid: 41483254d8c589f44a2b7a0d4ef181d7
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Yuki_Marche_Cote_0
-    21300002: Yuki_Marche_Cote_1
-    21300004: Yuki_Marche_Cote_2
-    21300006: Yuki_Marche_Cote_3
-    21300008: Yuki_Marche_Cote_4
-    21300010: Yuki_Marche_Cote_5
-    21300012: Yuki_Marche_Cote_6
-    21300014: Yuki_Marche_Cote_7
+    21300000: Youki_Saut_Bas__0
+    21300002: Youki_Saut_Bas__1
+    21300004: Youki_Saut_Bas__2
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -92,67 +87,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be4ead40c9b569b43a79677ed6b255f9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yuki_Marche_Cote_1
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 16717235e02531241afa351039ebce91
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yuki_Marche_Cote_2
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f3e957d6d66663c49b05a917a082146d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yuki_Marche_Cote_3
+      name: Youki_Saut_Bas__0
       rect:
         serializedVersion: 2
         x: 0
@@ -166,13 +101,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40eed92fd1063fd4081cf59cfab56402
+      spriteID: c2acd63eb3a6aba47826d25c7290889a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_4
+      name: Youki_Saut_Bas__1
       rect:
         serializedVersion: 2
         x: 128
@@ -186,33 +121,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05d558d83f419d44ebd709aec9a0b8ee
+      spriteID: 94b2f668a256ff24f843f58fe58bffe5
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_5
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 128
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17176057f607e1d43aa18b9adfb9bd22
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yuki_Marche_Cote_6
+      name: Youki_Saut_Bas__2
       rect:
         serializedVersion: 2
         x: 0
@@ -226,27 +141,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e539ed030501e1a42a6c3d1e2f76db0e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yuki_Marche_Cote_7
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d28b5c8ad05aa74cb953fce59395b19
+      spriteID: a385c6d2e3858234caa9a48098b46b09
       vertices: []
       indices: 
       edges: []
@@ -254,7 +149,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 839dc86d84eacb444bd1a13cb55d5031
+    spriteID: 0c1df3b6284537047ad9002fefc51c6c
     vertices: []
     indices: 
     edges: []
