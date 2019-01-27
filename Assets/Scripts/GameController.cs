@@ -308,8 +308,9 @@ public class GameController : MonoBehaviour
             if (gridSystem.NodeFromWorlPoint(position).objectOnNode != null && dog.height == gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().size)
             {
                 HomeObject obj;
-                if (gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject)
+                if (gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject != null)
                 {
+                    Debug.Log("Test");
                     obj= gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject;
                     dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(position));
                     if (dog.Grab(obj))
@@ -322,12 +323,15 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Test 2 ");
                     obj = gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>();
                     dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(position));
                     if (dog.Grab(obj))
                     {
+                        Debug.Log("Grab 2 ");
                         inventory = obj.gameObject;
                         gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
+                        gridSystem.NodeFromWorlPoint(obj.transform.position).walkable = true;
                         ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
 
                     }
