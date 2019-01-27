@@ -412,6 +412,14 @@ public class GameController : MonoBehaviour
                     inventory = node.objectOnNode.GetComponent<HomeObject>().containedObject.gameObject;
                     dog.Examine(node.objectOnNode.GetComponent<HomeObject>());
                 }
+                else
+                {
+                    dog.BeConfused();
+                }
+            }
+            else
+            {
+                dog.BeConfused();
             }
             
         }
