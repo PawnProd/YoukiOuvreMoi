@@ -101,11 +101,13 @@ public class Dog : MonoBehaviour
         for(int i = 0; i < path.Count; ++i)
         {
             Node node = path[i];
-            if(i < path.Count - 2)
+            Debug.Log("Path count = " + path.Count);
+            if (i < path.Count - 1)
             {
                 CalculDirection(node, path[i + 1]);
                 animator.SetFloat("DirX", direction.x);
                 animator.SetFloat("DirY", direction.y);
+                Debug.Log("Direction !");
             }
             while((node.worldPosition - transform.position).sqrMagnitude != 0)
             {
