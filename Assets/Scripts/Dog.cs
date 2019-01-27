@@ -24,12 +24,12 @@ public class Dog : MonoBehaviour
         StartCoroutine(CO_Move(path));
     }
 
-    public void JumpTo(Node node)
+    public void JumpTo(Node node, bool up)
     {
-        List<Node> nodes = new List<Node>();
-        nodes.Add(node);
-
-        StartCoroutine(CO_Move(nodes));
+        GetComponent<SpriteRenderer>().sortingOrder = node.objectOnNode.GetComponent<SpriteRenderer>().sortingOrder + ((up) ? 1 : -1);
+        animator.SetBool("Jumping", true);
+        
+        StartCoroutine(CO_Jump(node));
     }
 
     public void Push(HomeObject objToPush, Vector3 position)
@@ -99,6 +99,23 @@ public class Dog : MonoBehaviour
             }
         }
         animator.SetBool("Moving", false);
+       
+        GameController.Instance.phase = Phase.SELECTACTION;
+        GameController.Instance.ath.CleanOrder();
+        yield return null;
+    }
+
+    IEnumerator CO_Jump(Node destination)
+    {
+        CalculDirection(GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position), destination);
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
+        while ((destination.worldPosition - transform.position).sqrMagnitude != 0)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, destination.worldPosition, speed * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        animator.SetBool("Jumping", false);
         GameController.Instance.phase = Phase.SELECTACTION;
         GameController.Instance.ath.CleanOrder();
         yield return null;
