@@ -231,7 +231,7 @@ public class GameController : MonoBehaviour
         }
         else if (dog.height == ObjectSize.Low && node.walkable && gridSystem.CheckIfPosIsNear(dog.gameObject, position))
         {
-            dog.JumpTo(node);
+            dog.JumpTo(node, false);
             dog.height = ObjectSize.Ground;
             gridSystem.CleanUpdatedNode();
         }
@@ -244,8 +244,13 @@ public class GameController : MonoBehaviour
         {
             if (gridSystem.CheckIfObjectIsNear(dog.gameObject, target))
             {
+                if ((dog.height == ObjectSize.Ground && target.GetComponent<HomeObject>().size == ObjectSize.Low) || (dog.height == ObjectSize.Low && target.GetComponent<HomeObject>().size == ObjectSize.High))
+                    dog.JumpTo(node, true);
+                else
+                    dog.JumpTo(node, false);
+
                 dog.height = target.GetComponent<HomeObject>().size;
-                dog.JumpTo(node);
+                
                 gridSystem.CleanUpdatedNode();
                 gridSystem.UpdateWalkableNode(dog.height, node);
             }
@@ -267,6 +272,7 @@ public class GameController : MonoBehaviour
                 gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject.size = ObjectSize.Ground;
                 gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject = null;
             }*/
+            dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(position));
             gridSystem.SwitchWalkableNode(gridSystem.NodeFromWorlPoint(position), gridSystem.NodeFromWorlPoint(targetPos));
             dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>(), gridSystem.NodeFromWorlPoint(targetPos).worldPosition);
             gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = gridSystem.NodeFromWorlPoint(position).objectOnNode;
@@ -290,6 +296,7 @@ public class GameController : MonoBehaviour
                 if (gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject)
                 {
                     obj= gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject;
+                    dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(position));
                     if (dog.Grab(obj))
                     {
                         inventory = obj.gameObject;
@@ -301,6 +308,7 @@ public class GameController : MonoBehaviour
                 else
                 {
                     obj = gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>();
+                    dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(position));
                     if (dog.Grab(obj))
                     {
                         inventory = obj.gameObject;
@@ -326,6 +334,7 @@ public class GameController : MonoBehaviour
                 
                 if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
                 {
+                    dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(targetPos));
                     dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
                     gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
                     gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size = dog.height;
@@ -335,6 +344,7 @@ public class GameController : MonoBehaviour
             }
             else if (dog.height != ObjectSize.Ground && gridSystem.NodeFromWorlPoint(targetPos).objectOnNode == null)
             {
+                dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(targetPos));
                 dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
                 inventory.GetComponent<HomeObject>().size = ObjectSize.Ground;
                 gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
@@ -345,6 +355,7 @@ public class GameController : MonoBehaviour
             {
                 if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)))
                 {
+                    dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(targetPos));
                     dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
                     gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = inventory;
                     gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().size = dog.height;
@@ -356,6 +367,7 @@ public class GameController : MonoBehaviour
             {
                 if (gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject == null)
                 {
+                    dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(targetPos));
                     dog.Release(inventory.GetComponent<HomeObject>(), targetPos);
                     gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject = inventory.GetComponent<HomeObject>();
                     gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>().onTopObject.GetComponent<HomeObject>().size = dog.height;
@@ -377,6 +389,7 @@ public class GameController : MonoBehaviour
             {
                 if(node.objectOnNode.GetComponent<HomeObject>().containedObject != null)
                 {
+                    dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(targetPos));
                     ath.AddObjetToInventory(node.objectOnNode.GetComponent<HomeObject>().containedObject.GetComponent<SpriteRenderer>().sprite);
                     inventory = node.objectOnNode.GetComponent<HomeObject>().containedObject.gameObject;
                     dog.Examine(node.objectOnNode.GetComponent<HomeObject>());

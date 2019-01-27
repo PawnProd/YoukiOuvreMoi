@@ -11,21 +11,36 @@ public class Dog : MonoBehaviour
     public int compteurConfusion = 3;
     public int nbOfConfusedTimes = 0;
 
+    public Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
     public void MoveTo(List<Node> path)
     {
+        animator.SetBool("Moving", true);
         StartCoroutine(CO_Move(path));
     }
 
-    public void JumpTo(Node node)
+    public void JumpTo(Node node, bool up)
     {
-        List<Node> nodes = new List<Node>();
-        nodes.Add(node);
-
-        StartCoroutine(CO_Move(nodes));
+        if(up)
+        {
+            GetComponent<SpriteRenderer>().sortingOrder = node.objectOnNode.GetComponent<SpriteRenderer>().sortingOrder + 1;
+        }
+        
+        animator.SetBool("Jumping", true);
+        
+        StartCoroutine(CO_Jump(node, up));
     }
 
     public void Push(HomeObject objToPush, Vector3 position)
     {
+        animator.SetTrigger("Push");
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
         if ( !objToPush.BeingPushed(this, position))
         {
             BeConfused();
@@ -34,16 +49,25 @@ public class Dog : MonoBehaviour
 
     public bool Grab(HomeObject objToGrab)
     {
+        animator.SetTrigger("Interact");
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
         return objToGrab.BeingGrabed();
     }
 
     public bool Release(HomeObject objToRelease, Vector3 position)
     {
+        animator.SetTrigger("Interact");
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
         return objToRelease.BeingReleased(position);
     }
 
     public void Examine(HomeObject objToExamine)
     {
+        animator.SetTrigger("Interact");
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
         if ( !objToExamine.BeingExamined(this) )
         {
             BeConfused();
@@ -77,9 +101,11 @@ public class Dog : MonoBehaviour
         for(int i = 0; i < path.Count; ++i)
         {
             Node node = path[i];
-            if(i == path.Count - 2)
+            if(i < path.Count - 2)
             {
                 CalculDirection(node, path[i + 1]);
+                animator.SetFloat("DirX", direction.x);
+                animator.SetFloat("DirY", direction.y);
             }
             while((node.worldPosition - transform.position).sqrMagnitude != 0)
             {
@@ -87,8 +113,38 @@ public class Dog : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+        animator.SetBool("Moving", false);
+       
         GameController.Instance.phase = Phase.SELECTACTION;
         GameController.Instance.ath.CleanOrder();
+        yield return null;
+    }
+
+    IEnumerator CO_Jump(Node destination, bool up)
+    {
+        CalculDirection(GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position), destination);
+        animator.SetFloat("DirX", direction.x);
+        animator.SetFloat("DirY", direction.y);
+        while ((destination.worldPosition - transform.position).sqrMagnitude != 0)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, destination.worldPosition, speed * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        animator.SetBool("Jumping", false);
+        GameController.Instance.phase = Phase.SELECTACTION;
+        GameController.Instance.ath.CleanOrder();
+        if(!up)
+        {
+            if(destination.objectOnNode == null)
+            {
+                GetComponent<SpriteRenderer>().sortingOrder = 2;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().sortingOrder = destination.objectOnNode.GetComponent<SpriteRenderer>().sortingOrder - 1;
+            }
+            
+        }
         yield return null;
     }
 

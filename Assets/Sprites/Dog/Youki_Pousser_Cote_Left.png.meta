@@ -1,15 +1,13 @@
 fileFormatVersion: 2
-guid: 64096b5618c0c9d41b568c0c783b1724
+guid: d6b6d4f12b714c34f9b0a1fdb1d4564e
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Yuki_Marche_Cote_0
-    21300002: Yuki_Marche_Cote_1
-    21300004: Yuki_Marche_Cote_2
-    21300006: Yuki_Marche_Cote_3
-    21300008: Yuki_Marche_Cote_4
-    21300010: Yuki_Marche_Cote_5
-    21300012: Yuki_Marche_Cote_6
-    21300014: Yuki_Marche_Cote_7
+    21300000: Youki_Pousser_Cote_Left_0
+    21300002: Youki_Pousser_Cote_Left_1
+    21300004: Youki_Pousser_Cote_Left_2
+    21300006: Youki_Pousser_Cote_Left_3
+    21300008: Youki_Pousser_Cote_Left_4
+    21300010: Youki_Pousser_Cote_Left_5
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -92,13 +90,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_0
+      name: Youki_Pousser_Cote_Left_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
-        width: 128
-        height: 128
+        y: 384
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -106,19 +104,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be4ead40c9b569b43a79677ed6b255f9
+      spriteID: 3b02c07050c4ed34aaa3480d9cbd20b7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_1
+      name: Youki_Pousser_Cote_Left_1
       rect:
         serializedVersion: 2
-        x: 128
-        y: 256
-        width: 128
-        height: 128
+        x: 192
+        y: 384
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -126,39 +124,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16717235e02531241afa351039ebce91
+      spriteID: 22605e79874e6004e8c0753df9d64559
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_2
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 256
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f3e957d6d66663c49b05a917a082146d
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yuki_Marche_Cote_3
+      name: Youki_Pousser_Cote_Left_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
-        width: 128
-        height: 128
+        y: 192
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,19 +144,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40eed92fd1063fd4081cf59cfab56402
+      spriteID: ba8d2f1944c8750469750c38b2be5094
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_4
+      name: Youki_Pousser_Cote_Left_3
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
-        width: 128
-        height: 128
+        x: 192
+        y: 192
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -186,39 +164,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05d558d83f419d44ebd709aec9a0b8ee
+      spriteID: 9abdbabab0a930a4d99e8eb32ccd4a38
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_5
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 128
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 17176057f607e1d43aa18b9adfb9bd22
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Yuki_Marche_Cote_6
+      name: Youki_Pousser_Cote_Left_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,19 +184,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e539ed030501e1a42a6c3d1e2f76db0e
+      spriteID: d2f72bcb56927ce4cab8ea5a61c559ae
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Yuki_Marche_Cote_7
+      name: Youki_Pousser_Cote_Left_5
       rect:
         serializedVersion: 2
-        x: 128
+        x: 192
         y: 0
-        width: 128
-        height: 128
+        width: 192
+        height: 192
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,7 +204,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d28b5c8ad05aa74cb953fce59395b19
+      spriteID: 2465f1bb7bc2e1348af4a737f7caf549
       vertices: []
       indices: 
       edges: []
@@ -254,7 +212,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 839dc86d84eacb444bd1a13cb55d5031
+    spriteID: 06067587133da734f8707b7f410f8eec
     vertices: []
     indices: 
     edges: []
