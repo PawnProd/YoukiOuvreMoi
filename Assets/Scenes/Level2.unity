@@ -4836,6 +4836,36 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5821499860168288476, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_text
+      value: Bring back tips to the door to read it !
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821499860168288476, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821499860168288476, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821499860168288476, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821499860168288476, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821499860168288476, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7027976159243874402, guid: d9c62f1fca6887145aed147ef98a919d,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -4845,6 +4875,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7027976159243874402, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_text
+      value: Level 2
       objectReference: {fileID: 0}
     - target: {fileID: 6780950650818698396, guid: d9c62f1fca6887145aed147ef98a919d,
         type: 3}
