@@ -256,6 +256,11 @@ PrefabInstance:
       propertyPath: containedObject
       value: 
       objectReference: {fileID: 956622015}
+    - target: {fileID: 7982180109159257523, guid: ca6524c5dba21ad47b9afac49b870356,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca6524c5dba21ad47b9afac49b870356, type: 3}
 --- !u!1 &506424262
@@ -291,7 +296,7 @@ Transform:
   - {fileID: 1610675485}
   - {fileID: 1722252608}
   m_Father: {fileID: 1887846365}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -4646,8 +4651,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1864696219}
-  - {fileID: 971841043}
   - {fileID: 506424263}
+  - {fileID: 971841043}
   - {fileID: 1386589275}
   - {fileID: 1888627308}
   - {fileID: 1234911448}

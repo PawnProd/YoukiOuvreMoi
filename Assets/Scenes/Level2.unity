@@ -228,7 +228,7 @@ PrefabInstance:
     - target: {fileID: 3031496421170151144, guid: ca6524c5dba21ad47b9afac49b870356,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3031496421170151144, guid: ca6524c5dba21ad47b9afac49b870356,
         type: 3}
@@ -255,6 +255,11 @@ PrefabInstance:
       propertyPath: containedObject
       value: 
       objectReference: {fileID: 1303021875}
+    - target: {fileID: 7982180109159257523, guid: ca6524c5dba21ad47b9afac49b870356,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca6524c5dba21ad47b9afac49b870356, type: 3}
 --- !u!1 &506424262
@@ -284,11 +289,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1610675485}
   - {fileID: 848521067}
   - {fileID: 1722252608}
+  - {fileID: 1610675485}
   m_Father: {fileID: 1887846365}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -422,7 +427,7 @@ PrefabInstance:
     - target: {fileID: 5327280330945275693, guid: 5818fe35dee6b96419df4de4969bd1ba,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5327280330945275693, guid: 5818fe35dee6b96419df4de4969bd1ba,
         type: 3}
@@ -654,7 +659,7 @@ PrefabInstance:
     - target: {fileID: 4339313770673042872, guid: aaef2ed795a0d6147b0b42668b84866b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4339313770673042872, guid: aaef2ed795a0d6147b0b42668b84866b,
         type: 3}
@@ -4482,8 +4487,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1864696219}
-  - {fileID: 971841043}
   - {fileID: 506424263}
+  - {fileID: 971841043}
   - {fileID: 1386589275}
   - {fileID: 1888627308}
   - {fileID: 859409822}

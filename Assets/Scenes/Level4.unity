@@ -251,6 +251,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4381965036316770675, guid: 9f34f42cf04f4e44b85c22f694e7239c,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f34f42cf04f4e44b85c22f694e7239c, type: 3}
 --- !u!4 &207465063 stripped
@@ -641,6 +646,11 @@ PrefabInstance:
       value: the key is on the ege of the shelf, just kick the shelf and it fells
         !
       objectReference: {fileID: 0}
+    - target: {fileID: 5251503304236690437, guid: 5818fe35dee6b96419df4de4969bd1ba,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5818fe35dee6b96419df4de4969bd1ba, type: 3}
 --- !u!4 &731431757 stripped
@@ -798,6 +808,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854269886822530497, guid: aaef2ed795a0d6147b0b42668b84866b,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaef2ed795a0d6147b0b42668b84866b, type: 3}
@@ -4874,6 +4889,11 @@ PrefabInstance:
       propertyPath: containedObject
       value: 
       objectReference: {fileID: 956622015}
+    - target: {fileID: 7118771412713735834, guid: 4b17e30660f01f94dbad2dac6418ef69,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b17e30660f01f94dbad2dac6418ef69, type: 3}
 --- !u!1001 &4417264531692711420
