@@ -26,7 +26,10 @@ public class Dog : MonoBehaviour
 
     public void Push(HomeObject objToPush, Vector3 position)
     {
-        objToPush.BeingPushed(this, position);
+        if ( !objToPush.BeingPushed(this, position))
+        {
+            BeConfused();
+        }
     }
 
     public bool Grab(HomeObject objToGrab)
@@ -41,7 +44,10 @@ public class Dog : MonoBehaviour
 
     public void Examine(HomeObject objToExamine)
     {
-        objToExamine.BeingExamined(this);
+        if ( !objToExamine.BeingExamined(this) )
+        {
+            BeConfused();
+        }
     }
 
     public void CalculDirection(Node currentNode, Node nextNode)
