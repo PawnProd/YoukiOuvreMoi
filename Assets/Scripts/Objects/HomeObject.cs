@@ -189,7 +189,6 @@ public class HomeObject : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         currentNode = GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position);
-        GameController.Instance.gridSystem.NodeFromWorlPoint(transform.position).objectOnNode = gameObject;
         GameController.Instance.phase = Phase.SELECTACTION;
         GameController.Instance.ath.CleanOrder();
         yield return null;
