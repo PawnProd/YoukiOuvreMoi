@@ -21,22 +21,46 @@ public class AthController : MonoBehaviour
 
     public Transform tipsPanel;
 
+    public List<Sprite> actionsSprites;
+
+    public TextMeshProUGUI compteurConfusion;
+
     private GameObject tipsGO;
 
-    public void InitOrder(string actionName)
+    public void InitOrder(string actionName, int indexImgAction)
     {
-        orderPanel.GetChild(0).GetComponent<TextMeshProUGUI>().text = actionName + " !";
+        orderPanel.GetChild(0).GetComponent<Image>().enabled = true;
+        orderPanel.GetChild(0).GetComponent<Image>().sprite = actionsSprites[indexImgAction];
+        orderPanel.GetChild(1).GetComponent<TextMeshProUGUI>().text = actionName + " !";
         
+    }
+
+    public void CleanOrder()
+    {
+        RemoveTarget();
+        orderPanel.GetChild(0).GetComponent<Image>().enabled = false;
+        orderPanel.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
     }
 
     public void AddTargetSprite(Sprite targetSprite)
     {
+        orderPanel.GetChild(orderPanel.childCount - 1).GetComponent<Image>().enabled = true;
         orderPanel.GetChild(orderPanel.childCount - 1).GetComponent<Image>().sprite = targetSprite;
+    }
+
+    public void RemoveTarget()
+    {
+        orderPanel.GetChild(orderPanel.childCount - 1).GetComponent<Image>().enabled = false;
     }
 
     public void EnableOrDisableApplyOrderButton(bool enable)
     {
         applyOrderButton.interactable = enable;
+    }
+
+    public void UpdateCompteurConfusion(int nbConfusion)
+    {
+        compteurConfusion.text = "x" + nbConfusion;
     }
 
     public Sprite GetSpriteOfTile(TileType type)

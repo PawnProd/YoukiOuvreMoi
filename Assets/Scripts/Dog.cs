@@ -64,6 +64,7 @@ public class Dog : MonoBehaviour
     {
         compteurConfusion--;
         nbOfConfusedTimes++;
+        GameController.Instance.ath.UpdateCompteurConfusion(nbOfConfusedTimes);
         if ( verifyLoosingConditions() )
         {
             GameController.Instance.EndOfGame(false);
@@ -87,6 +88,7 @@ public class Dog : MonoBehaviour
             }
         }
         GameController.Instance.phase = Phase.SELECTACTION;
+        GameController.Instance.ath.CleanOrder();
         yield return null;
     }
 
