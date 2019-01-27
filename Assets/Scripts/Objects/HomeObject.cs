@@ -66,7 +66,6 @@ public class HomeObject : MonoBehaviour
                 {
                     Open();
                 }
-                onTopObject.MoveObject(dog.transform.position);
                 onTopObject.size = ObjectSize.Ground;
                 onTopObject.MoveObject(dog.transform.position);
                 onTopObject = null;
