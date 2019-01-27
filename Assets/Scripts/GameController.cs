@@ -111,28 +111,28 @@ public class GameController : MonoBehaviour
         Order order;
         switch(nextAction)
         {
-            case "Déplacer":
+            case "Bouge":
                 type = OrderType.Move;
                 order = new Order(type, position);
                 return order;
-            case "Sauter":
+            case "Saute":
                 type = OrderType.Jump;
                 order = new Order(type, position);
                 return order;
-            case "Prendre":
+            case "Ramasse":
                 type = OrderType.Take;
                 Debug.Log(type);
                 order = new Order(type, position);
                 return order;
-            case "Relacher":
+            case "Lache":
                 type = OrderType.Release;
                 order = new Order(type, position);
                 return order;
-            case "Pousser":
+            case "Pousse":
                 type = OrderType.Push;
                 order = new Order(type, position);
                 return order;
-            case "Examiner":
+            case "Cherche":
                 type = OrderType.Examine;
                 order = new Order(type, position);
                 return order;
