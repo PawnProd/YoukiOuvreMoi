@@ -4853,6 +4853,61 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4066578389606524649, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -82.85001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4066578389606524649, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 198.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310691004568233741, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6310691004568233741, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -51
+      objectReference: {fileID: 0}
+    - target: {fileID: 423578812002761621, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821499860168288476, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5821499860168288476, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7027976159243874402, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7027976159243874402, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780950650818698396, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6780950650818698396, guid: d9c62f1fca6887145aed147ef98a919d,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3412754394372367492, guid: d9c62f1fca6887145aed147ef98a919d,
         type: 3}
       propertyPath: m_havePropertiesChanged
