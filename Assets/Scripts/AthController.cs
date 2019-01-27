@@ -96,6 +96,7 @@ public class AthController : MonoBehaviour
         tipsPanel.Find("Title").GetComponent<TextMeshProUGUI>().text = title;
         tipsPanel.Find("Content").GetComponent<TextMeshProUGUI>().text = content;
         tipsPanel.gameObject.SetActive(true);
+        tipsGO = go;
     }
 
     public void CloseTips ()
