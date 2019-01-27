@@ -78,22 +78,22 @@ public class GameController : MonoBehaviour
         int indexImgAction = 0;
         switch(actionName)
         {
-            case "Bouge":
+            case "Move":
                 indexImgAction = 0;
                 break;
-            case "Saute":
+            case "Jump":
                 indexImgAction = 1;
                 break;
-            case "Ramasse":
+            case "Take":
                 indexImgAction = 2;
                 break;
-            case "Lache":
+            case "Drop":
                 indexImgAction = 2;
                 break;
-            case "Pousse":
+            case "Push":
                 indexImgAction = 3;
                 break;
-            case "Cherche":
+            case "Search":
                 indexImgAction = 2;
                 break;
             default:
@@ -144,28 +144,28 @@ public class GameController : MonoBehaviour
         Order order;
         switch(nextAction)
         {
-            case "Bouge":
+            case "Move":
                 type = OrderType.Move;
                 order = new Order(type, position);
                 return order;
-            case "Saute":
+            case "Jump":
                 type = OrderType.Jump;
                 order = new Order(type, position);
                 return order;
-            case "Ramasse":
+            case "Take":
                 type = OrderType.Take;
                 Debug.Log(type);
                 order = new Order(type, position);
                 return order;
-            case "Lache":
+            case "Drop":
                 type = OrderType.Release;
                 order = new Order(type, position);
                 return order;
-            case "Pousse":
+            case "Push":
                 type = OrderType.Push;
                 order = new Order(type, position);
                 return order;
-            case "Cherche":
+            case "Search":
                 type = OrderType.Examine;
                 order = new Order(type, position);
                 return order;
