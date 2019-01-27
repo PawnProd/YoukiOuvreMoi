@@ -266,17 +266,25 @@ public class GameController : MonoBehaviour
         Debug.Log(targetPos);
         if (gridSystem.NodeIsFree(gridSystem.NodeFromWorlPoint(targetPos)) || (gridSystem.NodeFromWorlPoint(targetPos).objectOnNode.GetComponent<HomeObject>() == gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject ))
         {
+            Debug.Log("Coucou");
             /* Ne pas décommenter ça pour le moment
             if (gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject != null)
             {
                 gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject.size = ObjectSize.Ground;
                 gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>().onTopObject = null;
             }*/
+
+            
             dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(position));
-            gridSystem.SwitchWalkableNode(gridSystem.NodeFromWorlPoint(position), gridSystem.NodeFromWorlPoint(targetPos));
             dog.Push(gridSystem.NodeFromWorlPoint(position).objectOnNode.GetComponent<HomeObject>(), gridSystem.NodeFromWorlPoint(targetPos).worldPosition);
-            gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = gridSystem.NodeFromWorlPoint(position).objectOnNode;
-            gridSystem.NodeFromWorlPoint(position).objectOnNode = null;
+
+            if(gridSystem.NodeFromWorlPoint(targetPos).walkable)
+            {
+                gridSystem.SwitchWalkableNode(gridSystem.NodeFromWorlPoint(position), gridSystem.NodeFromWorlPoint(targetPos));
+                gridSystem.NodeFromWorlPoint(targetPos).objectOnNode = gridSystem.NodeFromWorlPoint(position).objectOnNode;
+                gridSystem.NodeFromWorlPoint(position).objectOnNode = null;
+            }
+            
 
 
         } else
@@ -384,10 +392,9 @@ public class GameController : MonoBehaviour
         if(inventory == null)
         {
             Node node = gridSystem.NodeFromWorlPoint(targetPos);
-           
             if(!gridSystem.NodeIsFree(node))
             {
-                if(node.objectOnNode.GetComponent<HomeObject>().containedObject != null)
+                if(node.objectOnNode.GetComponent<HomeObject>().containedObject != null && node.objectOnNode.GetComponent<HomeObject>().examinable)
                 {
                     dog.CalculDirection(gridSystem.NodeFromWorlPoint(dog.transform.position), gridSystem.NodeFromWorlPoint(targetPos));
                     ath.AddObjetToInventory(node.objectOnNode.GetComponent<HomeObject>().containedObject.GetComponent<SpriteRenderer>().sprite);
