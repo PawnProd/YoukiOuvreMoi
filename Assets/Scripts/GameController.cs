@@ -315,7 +315,7 @@ public class GameController : MonoBehaviour
                     if (dog.Grab(obj))
                     {
                         inventory = obj.gameObject;
-                        gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode = null;
+                        gridSystem.NodeFromWorlPoint(obj.transform.position).objectOnNode.GetComponent<HomeObject>().onTopObject = null;
                         ath.AddObjetToInventory(obj.GetComponent<SpriteRenderer>().sprite);
 
                     }

@@ -3590,7 +3590,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onTopObject
       value: 
-      objectReference: {fileID: 1303021875}
+      objectReference: {fileID: 0}
     - target: {fileID: 8072400895623490482, guid: ddcb8b2983112134aa96cf3872f243fe,
         type: 3}
       propertyPath: key
@@ -3692,6 +3692,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 971841044, guid: 87695c86496a3484baec03762675892c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87695c86496a3484baec03762675892c, type: 3}
