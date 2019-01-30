@@ -691,7 +691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &472601702
 RectTransform:
   m_ObjectHideFlags: 0
@@ -823,7 +823,7 @@ MonoBehaviour:
     Nicolas Lagree
 
 
-    Yuri Bossus'
+    Youri Bossus'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8d637de9cd7337c46aaf5c101ca72584, type: 2}
   m_sharedMaterial: {fileID: 21899024372311410, guid: 8d637de9cd7337c46aaf5c101ca72584,
@@ -893,7 +893,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 483683514}
-    characterCount: 79
+    characterCount: 80
     spriteCount: 0
     spaceCount: 13
     wordCount: 10
